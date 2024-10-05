@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KebunController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksiItemController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -21,6 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/kebun/histori/{id}', [KebunController::class, 'histori'])->middleware('pemilik-kebun'); #lihat histori penyiraman
     });
     Route::post('/add/keranjang', [TransaksiItemController::class, 'add']);
+    Route::post('/beli', [TransaksiController::class, 'store']);
 });
 
 Route::get('/produk', [ProdukController::class, 'show']); #Melihat semua produk
