@@ -16,16 +16,11 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     protected $primaryKey = 'transaksi_id';
     protected $fillable = [
-        'id_user',
         'total',
         'status',
         'snaptoken'
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'id_user', 'user_id');
-    }
 
     public function transaksiItem(): HasMany
     {

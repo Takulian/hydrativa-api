@@ -22,6 +22,10 @@ return new class extends Migration
                 ->constrained('produk', 'produk_id')
                 ->noActionOnUpdate()
                 ->noActionOnDelete();
+            $table->foreignId('id_user')
+                ->constrained('user', 'user_id')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->integer('quantity');
             $table->integer('subtotal');
             $table->timestamps();

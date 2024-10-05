@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id('transaksi_id');
-            $table->foreignId('id_user')
-                ->constrained('user', 'user_id')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
             $table->integer('total');
             $table->string('status');
             $table->longText('snaptoken');
