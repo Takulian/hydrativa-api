@@ -44,7 +44,7 @@ class TransaksiController extends Controller
         return response()->json($snapToken);
     }
 
-    public function bayar($id){
+    public function berhasil($id){
         $transaksi = Transaksi::findOrFail($id);
         $transaksi->update([
             'status'=>'success'
@@ -52,11 +52,16 @@ class TransaksiController extends Controller
         return response()->json('Transaksi berhasil dibayar');
     }
 
-    public function failed($id){
+    public function gagal($id){
         $transaksi = Transaksi::findOrFail($id);
         $transaksi->update([
             'status'=>'failed'
         ]);
         return response()->json('Transaksi digagalkan');
+    }
+
+    public function show(){
+        $user = Auth::user();
+        Transaski::where('id_user', $user->user_id)->get();
     }
 }

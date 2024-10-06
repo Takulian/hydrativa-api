@@ -21,8 +21,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/kebun/list', [KebunController::class, 'profileKebun']); #Melihat kebun diri sendiri
         Route::get('/kebun/histori/{id}', [KebunController::class, 'histori'])->middleware('pemilik-kebun'); #lihat histori penyiraman
     });
-    Route::post('/add/keranjang', [TransaksiItemController::class, 'add']);
-    Route::post('/beli', [TransaksiController::class, 'store']);
+    Route::post('/keranjang/add', [TransaksiItemController::class, 'add']);
+    Route::get('/keranjang', [TransaksiItemController::class, 'show']);
+    Route::post('/bayar', [TransaksiController::class, 'store']);
+    Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
+    Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
 });
 
 Route::get('/produk', [ProdukController::class, 'show']); #Melihat semua produk

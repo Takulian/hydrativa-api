@@ -30,7 +30,6 @@ class ProdukController extends Controller
 
         Produk::create([
             'id_user' => Auth::user()->user_id,
-            'status_persetujuan'=>FALSE,
             'nama_produk'=>$request->nama_produk,
             'kategori'=>$request->kategori,
             'deskripsi'=>$request->deskripsi,
