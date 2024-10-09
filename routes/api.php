@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KebunController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksiItemController;
 
@@ -26,6 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/bayar', [TransaksiController::class, 'store']);
     Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
     Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
+    Route::get('/unrated', [RatingController::class, 'unrated']);
 });
 
 Route::get('/produk', [ProdukController::class, 'show']); #Melihat semua produk
