@@ -27,6 +27,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->integer('quantity');
+            $table->boolean('israted');
             $table->timestamps();
         });
     }
