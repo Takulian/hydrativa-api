@@ -6,6 +6,7 @@ use Midtrans\Snap;
 use Midtrans\Config;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use App\Models\TransaksiItem;
 use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
@@ -36,11 +37,17 @@ class TransaksiController extends Controller
         $data = $request->validate([
             'total' => 'required',
         ]);
-        Transaksi::create([
+        $transaksi = Transaksi::create([
             'total' => $request->total,
             'status' => 'pending',
             'snaptoken' => $snapToken
         ]);
+        foreach ($request->id_item as $id_item) {
+            $cari = TransaksiItem::findOrFail($id_item);
+            $cari->update([
+                'id_transaksi' => $transaksi->transaksi_id
+            ]);
+        }
         return response()->json($snapToken);
     }
 
