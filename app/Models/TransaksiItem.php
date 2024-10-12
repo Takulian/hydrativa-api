@@ -20,6 +20,7 @@ class TransaksiItem extends Model
         'id_transaksi',
         'id_produk',
         'id_user',
+        'israted',
         'quantity'
     ];
 

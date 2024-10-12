@@ -11,11 +11,12 @@ class TransaksiItemController extends Controller
 {
     public function add(Request $request){
         $user = Auth::user();
-        $cari = TransaksiItem::where('id_user', $user->user_id)->where('id_produk', $request->id_produk)->first();
+        $cari = TransaksiItem::where('id_user', $user->user_id)->where('id_produk', $request->id_produk)->where('id_transaksi', null)->first();
         if(empty($cari) == true){
             TransaksiItem::create([
                 'id_user' => $user->user_id,
                 'id_produk' => $request->id_produk,
+                'israted' => false,
                 'quantity' => $request->quantity,
             ]);
             return response()->json('Item telah ditambahkan');
