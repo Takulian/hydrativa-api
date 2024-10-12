@@ -22,8 +22,8 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->integer('rating');
-            $table->string('comment');
-            $table->longText('gambar');
+            $table->string('comment')->nullable();
+            $table->longText('gambar')->nullable();
             $table->timestamps();
         });
     }
