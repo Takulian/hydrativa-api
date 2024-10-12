@@ -28,10 +28,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
     Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
     Route::get('/unrated', [RatingController::class, 'unrated']);
+    Route::post('/rating/{id}', [RatingController::class, 'rating']);
 });
 
 Route::get('/produk', [ProdukController::class, 'show']); #Melihat semua produk
 Route::get('/produk/{id}', [ProdukController::class, 'detail']);
+Route::get('/rate/{id}', [RatingController::class,'rate']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']); #Login aja ga lebih
 
