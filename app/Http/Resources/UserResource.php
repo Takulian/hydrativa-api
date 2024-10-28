@@ -14,9 +14,15 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if(!$this->email_verified_at){
+            $verif = false;
+        }else {
+            $verif = true;
+        }
         return [
             'username' => $this->username,
             'email' => $this->email,
+            'verification_email' => $verif,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname
         ];
