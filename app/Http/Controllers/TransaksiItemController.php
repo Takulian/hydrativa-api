@@ -19,13 +19,17 @@ class TransaksiItemController extends Controller
                 'israted' => false,
                 'quantity' => $request->quantity,
             ]);
-            return response()->json('Item telah ditambahkan');
+            return response()->json([
+                'message' => 'Item telah ditambahkan'
+            ]);
         }
         elseif(empty($cari) == false){
             $cari->update([
                 'quantity'=>$cari->quantity + $request->quantity
             ]);
-            return response()->json('Item telah ditambahkan');
+            return response()->json([
+                'message' => 'Item telah ditambahkan'
+            ]);
         }
     }
     public function show(){

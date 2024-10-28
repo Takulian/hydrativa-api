@@ -35,7 +35,9 @@ class RatingController extends Controller
         $keranjang->update([
             'israted' => true
         ]);
-        return response()->json('Rating berhasil ditambahkan');
+        return response()->json([
+            'message' => 'Rating berhasil ditambahkan'
+        ]);
     }
 
     public function rate($id){
