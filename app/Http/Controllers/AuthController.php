@@ -17,57 +17,47 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     public function register(Request $request){
-        $data = Validator::make($request->all(), [
+        $data = $request->validate([
             'username' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
-
         ]);
-
-        if($data->fails()){
-            return response()->json('Formmu belum sesuai', 406);
-        }
-        else{
-            User::create([
-                'role' => 1,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'firstname' => $request->firstname,
-                'lastname' => $request->lastname
-            ]);
-            return response()->json('Akun telah dibuat',200);
-
-        }
+        User::create([
+            'role' => 1,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname
+        ]);
+        return response()->json([
+            'message' => 'Akun berhasil dibuat'
+        ]);
     }
 
     public function login(Request $request){
-        $data = Validator::make($request->all(), [
+        $data = $request->validate([
             'username' => 'required',
             'password' => 'required'
         ]);
+        $user = User::where('username', $request->username)->first();
 
-        if($data->fails()){
-            return response()->json('Formmu belum sesuai', 406);
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Username atau Password salah.'
+            ], 401);
         }
-        else{
-            $user = User::where('username', $request->username)->first();
+        return $user->createToken($request->username)->plainTextToken;
 
-            if (! $user || ! Hash::check($request->password, $user->password)) {
-                return response()->json([
-                    'message' => 'Username atau Password salah.'
-                ], 401);
-            }
-
-            return $user->createToken($request->username)->plainTextToken;
-        }
     }
 
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
-        return response()->json('Kamu berhasil logout');
+        return response()->json([
+            'message' => 'Logout berhasil'
+        ]);
     }
 
     public function aboutme(Request $request){
@@ -125,7 +115,6 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         $cari = User::where('email', $request->email)->first();
-
         $cari->update([
             'password' => Hash::make($request->password)
         ]);
