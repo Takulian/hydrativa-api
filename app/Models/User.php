@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Kebun;
+use App\Models\Alamat;
 use App\Models\Produk;
 use App\Models\Rating;
 use App\Models\Transaksi;
@@ -73,6 +74,10 @@ class User extends Authenticatable
     public function transaksi(): HasMany
     {
         return $this->hasMany(Transaksi::class, 'id_user', 'user_id');
+    }
+    public function alamat(): HasMany
+    {
+        return $this->hasMany(Alamat::class, 'id_user', 'user_id');
     }
 
 }
