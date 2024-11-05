@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlamatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,6 +33,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
     Route::get('/unrated', [RatingController::class, 'unrated']);
     Route::post('/rating/{id}', [RatingController::class, 'rating']);
+
+    Route::get('/alamat', [AlamatController::class, 'show']);
 });
 
 Route::post('/reset-password-link', [AuthController::class, 'sendResetLink']); #Kirim link reset password ke email user
