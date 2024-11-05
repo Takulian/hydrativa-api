@@ -44,6 +44,27 @@ class KebunController extends Controller
         ]);
     }
 
+    public function update($id){
+        $cari = Kebun::findOrFail($id);
+        $request->validate([
+            'nama_kebun'=>'required',
+            'luas_lahan'=>'required',
+            'lokasi_kebun'=>'required'
+        ]);
+        $cari->update($request->all());
+        return response()->json([
+            'message' => 'Kebun berhasil di-update'
+        ]);
+    }
+
+    public function destroy($id){
+        $cari = Kebun::findOrFail($id);
+        $cari->delete();
+        return response()->json([
+            'message' => 'Kebun berhasil dihapus'
+        ]);
+    }
+
     public function histori($id){
         $histori = Histori::where('id_kebun', $id)->get();
         return response()->json(HistoriResource::collection($histori));
