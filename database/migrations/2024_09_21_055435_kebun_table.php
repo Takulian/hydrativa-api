@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('nama_kebun');
             $table->integer('luas_lahan');
             $table->string('lokasi_kebun');
+            $table->string('gambar');
         });
     }
 
