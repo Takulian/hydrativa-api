@@ -20,7 +20,7 @@ class KebunController extends Controller
 
     public function profileKebun(){
         $kebun = Kebun::where('id_user', Auth::user()->user_id)->get();
-        return KebunResource::collection($kebun);
+        return response()->json(KebunResource::collection($kebun));
     }
 
     public function store(Request $request){
@@ -46,6 +46,6 @@ class KebunController extends Controller
 
     public function histori($id){
         $histori = Histori::where('id_kebun', $id)->get();
-        return HistoriResource::collection($histori);
+        return response()->json(HistoriResource::collection($histori));
     }
 }

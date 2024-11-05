@@ -11,12 +11,12 @@ class ProdukController extends Controller
 {
     public function show(){
         $produk = Produk::all();
-        return ProdukResource::collection($produk);
+        return response()->json(ProdukResource::collection($produk));
     }
 
     public function detail($id){
         $produk = Produk::findOrFail($id);
-        return new ProdukResource($produk);
+        return response()->json(new ProdukResource($produk));
     }
 
     public function store(Request $request){

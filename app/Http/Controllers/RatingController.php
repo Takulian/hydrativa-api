@@ -15,12 +15,11 @@ class RatingController extends Controller
         $user = Auth::user();
         $data = TransaksiItem::where('id_user', $user->user_id)->where('israted', false)->whereNotNull('id_transaksi')->get();
         return response()->json($data);
-        return TransaksiItemResource::collection($data);
+        return response()->json(TransaksiItemResource::collection($data));
     }
 
     public function rating(Request $request, $id){
         $user = Auth::user();
-        // return response()->json($request);
         $data = $request->validate([
             'rating' => "required"
         ]);
@@ -42,6 +41,6 @@ class RatingController extends Controller
 
     public function rate($id){
         $data = TransaksiItem::where('id_produk', $id)->where('israted', true)->get();
-        return RatingResource::collection($data);
+        return response()->json(RatingResource::collection($data));
     }
 }

@@ -21,9 +21,7 @@ class Kebun extends Model
         'id_alat',
         'nama_kebun',
         'luas_lahan',
-        'lokasi_kebun',
-        'keadaan_tanah',
-        'status_penyiraman'
+        'lokasi_kebun'
     ];
     public $timestamps = false;
 
