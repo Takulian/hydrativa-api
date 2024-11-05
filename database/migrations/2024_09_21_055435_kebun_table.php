@@ -17,11 +17,13 @@ return new class extends Migration
                 ->constrained('user', 'user_id')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->foreignId('id_alat')
+                ->constrained('alat', 'alat_id')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->string('nama_kebun');
             $table->integer('luas_lahan');
             $table->string('lokasi_kebun');
-            $table->string('keadaan_tanah');
-            $table->boolean('status_penyiraman');
         });
     }
 

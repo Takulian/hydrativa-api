@@ -15,8 +15,9 @@ class Histori extends Model
     protected $primaryKey = 'histori_id';
     protected $fillable = [
         'id_kebun',
-        'keadaan_tanah',
-        'status_penyiraman'
+        'moisture',
+        'pH',
+        'status'
     ];
 
     public function kebun(): BelongsTo

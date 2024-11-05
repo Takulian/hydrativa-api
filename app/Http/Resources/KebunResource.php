@@ -19,8 +19,9 @@ class KebunResource extends JsonResource
             'nama_kebun' => $this->nama_kebun,
             'luas_lahan' => $this->luas_lahan,
             'lokasi_kebun' => $this->lokasi_kebun,
-            'keadaan_tanah' => $this->keadaan_tanah,
-            'status_penyiraman' => $this->status_penyiraman,
+            'moisture' => $this->alat->moisture,
+            'pH' => $this->alat->pH,
+            'status' => $this->alat->status,
         ];
     }
 }

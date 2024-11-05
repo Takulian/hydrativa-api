@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Alat;
 use App\Models\User;
 use App\Models\Histori;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ class Kebun extends Model
     protected $primaryKey = 'kebun_id';
     protected $fillable = [
         'id_user',
+        'id_alat',
         'nama_kebun',
         'luas_lahan',
         'lokasi_kebun',
@@ -33,5 +35,9 @@ class Kebun extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user', 'user_id');
+    }
+    public function alat(): BelongsTo
+    {
+        return $this->belongsTo(Alat::class, 'id_alat', 'alat_id');
     }
 }

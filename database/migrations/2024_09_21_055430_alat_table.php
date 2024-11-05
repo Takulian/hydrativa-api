@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hydrativas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('alat', function (Blueprint $table) {
+            $table->id('alat_id');
+            $table->string('kode_alat');
             $table->integer('moisture');
             $table->float('pH', 8, 2);
             $table->string('status');
-            $table->timestamps();
         });
     }
 

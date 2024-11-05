@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Kebun;
-use App\Observers\KebunObserver;
+use App\Models\Alat;
+use App\Observers\AlatObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Kebun::observe(KebunObserver::class);
+        Alat::observe(AlatObserver::class);
     }
 }

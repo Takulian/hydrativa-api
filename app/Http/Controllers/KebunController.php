@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alat;
 use App\Models\User;
 use App\Models\Kebun;
 use App\Models\Histori;
@@ -26,30 +27,20 @@ class KebunController extends Controller
         $data = $request->validate([
             'nama_kebun'=>'required',
             'luas_lahan'=>'required',
-            'lokasi_kebun'=>'required'
+            'lokasi_kebun'=>'required',
+            'kode_alat' => 'required'
         ]);
+
+        $alat = Alat::where('kode_alat', $request->kode_alat)->first();
         Kebun::create([
             'id_user'=>Auth::user()->user_id,
             'nama_kebun'=>$request->nama_kebun,
             'luas_lahan'=>$request->luas_lahan,
             'lokasi_kebun'=>$request->lokasi_kebun,
-            'keadaan_tanah'=>'Kering',
-            'status_penyiraman'=>FALSE
+            'id_alat' =>$alat->alat_id
         ]);
         return response()->json([
             'message' => 'Kebun berhasil ditambah'
-        ]);
-    }
-
-    public function updateStatus(Request $request,String $id){
-        $data = $request->validate([
-            'keadaan_tanah'=>'required',
-            'status_penyiraman' => 'required'
-        ]);
-        $kebun = Kebun::findOrFail($id);
-        $kebun->update($request->all());
-        return response()->json([
-            'message' => 'Status berhasil diperbarui'
         ]);
     }
 

@@ -15,8 +15,9 @@ class HistoriResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'keadaan_tanah' => $this->keadaan_tanah,
-            'status_penyiraman' => $this->status_penyiraman,
+            'moisture' => $this->moisture,
+            'pH' => $this->pH,
+            'status' => $this->status,
             'waktu' => date_format($this->created_at, "Y/m/d H:i:s")
         ];
 
