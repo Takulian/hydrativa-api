@@ -25,19 +25,27 @@ class ProdukController extends Controller
             'kategori' => 'required',
             'deskripsi' => 'required',
             'harga' => 'required',
-            'gambar' => 'required',
-            'stok' => 'required|integer|min:0' 
+            'stok' => 'required|integer|min:0'
         ]);
 
-        Produk::create([
+        $data = Produk::create([
             'id_user' => Auth::user()->user_id,
             'nama_produk' => $request->nama_produk,
             'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
-            'gambar' => $request->gambar,
-            'stok' => $request->stok 
+            'gambar' => null,
+            'stok' => $request->stok
         ]);
+
+        if($request->hasFile('gambar')){
+            $file = $request->file('gambar');
+            $fileName = $this->quickRandom().'.'.$file->extension();
+            $path = $file->storeAs('produk', $fileName, 'public');
+            $data->update([
+                'gambar' => $path
+            ]);
+        }
 
         return response()->json([
             'message' => 'Produk berhasil ditambah'
@@ -54,8 +62,8 @@ class ProdukController extends Controller
             'gambar' => 'required',
             'stok' => 'required|integer|min:0', // Add stok validation
         ]);
-        
-        $produk->update($request->all()); 
+
+        $produk->update($request->all());
         return response()->json([
             'message' => 'Produk berhasil diperbarui'
         ]);
@@ -67,5 +75,11 @@ class ProdukController extends Controller
         return response()->json([
             'message' => 'Produk berhasil dihapus'
         ]);
+    }
+
+    public static function quickRandom($length = 16)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 }
