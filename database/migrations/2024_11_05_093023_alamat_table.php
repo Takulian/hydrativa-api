@@ -17,10 +17,16 @@ return new class extends Migration
                 ->constrained('user', 'user_id')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->string('no_telepon');
             $table->string('label_alamat');
             $table->string('nama_penerima');
-            $table->string('alamat');
-            $table->string('isMain');
+            $table->string('detail');
+            $table->string('kelurahan');
+            $table->string('kecamatan');
+            $table->string('kabupaten');
+            $table->string('provinsi');
+            $table->string('kodepos');
+            $table->integer('isPrimary');
             $table->string('catatan_kurir')->nullable();
             $table->timestamps();
         });

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('kategori');
             $table->text('deskripsi');
             $table->integer('harga');
+            $table->integer('stok');
             $table->longText('gambar');
             $table->timestamps();
         });

@@ -25,17 +25,20 @@ class ProdukController extends Controller
             'kategori' => 'required',
             'deskripsi' => 'required',
             'harga' => 'required',
-            'gambar' => 'required'
+            'gambar' => 'required',
+            'stok' => 'required|integer|min:0' 
         ]);
 
         Produk::create([
             'id_user' => Auth::user()->user_id,
-            'nama_produk'=>$request->nama_produk,
-            'kategori'=>$request->kategori,
-            'deskripsi'=>$request->deskripsi,
-            'harga'=>$request->harga,
-            'gambar'=>$request->gambar
+            'nama_produk' => $request->nama_produk,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+            'gambar' => $request->gambar,
+            'stok' => $request->stok 
         ]);
+
         return response()->json([
             'message' => 'Produk berhasil ditambah'
         ]);
@@ -49,8 +52,10 @@ class ProdukController extends Controller
             'deskripsi' => 'required',
             'harga' => 'required',
             'gambar' => 'required',
+            'stok' => 'required|integer|min:0', // Add stok validation
         ]);
-        $produk->update($request->all());
+        
+        $produk->update($request->all()); 
         return response()->json([
             'message' => 'Produk berhasil diperbarui'
         ]);
