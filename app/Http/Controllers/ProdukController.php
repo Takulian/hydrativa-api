@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Resources\ProdukResource;
 
 class ProdukController extends Controller
@@ -71,6 +72,10 @@ class ProdukController extends Controller
 
     public function destroy($id){
         $produk = Produk::findOrFail($id);
+        $path = storage_path('app/public/'.$produk->gambar);
+        if(File::exists($path)){
+            File::delete($path);
+        }
         $produk->delete();
         return response()->json([
             'message' => 'Produk berhasil dihapus'
