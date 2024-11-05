@@ -56,7 +56,9 @@ class TransaksiController extends Controller
         $transaksi->update([
             'status'=>'success'
         ]);
-        return response()->json('Transaksi berhasil dibayar');
+        return response()->json([
+            'message' => 'Transaksi berhasil dibayar'
+        ]);
     }
 
     public function gagal($id){
@@ -64,7 +66,9 @@ class TransaksiController extends Controller
         $transaksi->update([
             'status'=>'failed'
         ]);
-        return response()->json('Transaksi digagalkan');
+        return response()->json([
+            'message' => 'Transaksi digagalkan'
+        ]);
     }
 
     public function show(){

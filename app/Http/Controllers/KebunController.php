@@ -36,7 +36,9 @@ class KebunController extends Controller
             'keadaan_tanah'=>'Kering',
             'status_penyiraman'=>FALSE
         ]);
-        return response()->json('Kebun berhasil ditambahkan', 200);
+        return response()->json([
+            'message' => 'Kebun berhasil ditambah'
+        ]);
     }
 
     public function updateStatus(Request $request,String $id){
@@ -46,7 +48,9 @@ class KebunController extends Controller
         ]);
         $kebun = Kebun::findOrFail($id);
         $kebun->update($request->all());
-        return response()->json('Status Berhasil Diperbaharui', 200);
+        return response()->json([
+            'message' => 'Status berhasil diperbarui'
+        ]);
     }
 
     public function histori($id){

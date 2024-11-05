@@ -36,7 +36,9 @@ class ProdukController extends Controller
             'harga'=>$request->harga,
             'gambar'=>$request->gambar
         ]);
-        return response()->json('Produk berhasil ditambahkan', 200);
+        return response()->json([
+            'message' => 'Produk berhasil ditambah'
+        ]);
     }
 
     public function edit(Request $request, $id){
@@ -49,12 +51,16 @@ class ProdukController extends Controller
             'gambar' => 'required',
         ]);
         $produk->update($request->all());
-        return response()->json('Produk berhasil di-update');
+        return response()->json([
+            'message' => 'Produk berhasil diperbarui'
+        ]);
     }
 
     public function destroy($id){
         $produk = Produk::findOrFail($id);
         $produk->delete();
-        return response()->json('Produk berhasil dihapus');
+        return response()->json([
+            'message' => 'Produk berhasil dihapus'
+        ]);
     }
 }
