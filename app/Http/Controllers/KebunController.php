@@ -32,13 +32,22 @@ class KebunController extends Controller
         ]);
 
         $alat = Alat::where('kode_alat', $request->kode_alat)->first();
-        Kebun::create([
+        $data = Kebun::create([
             'id_user'=>Auth::user()->user_id,
             'nama_kebun'=>$request->nama_kebun,
             'luas_lahan'=>$request->luas_lahan,
             'lokasi_kebun'=>$request->lokasi_kebun,
-            'id_alat' =>$alat->alat_id
+            'id_alat' =>$alat->alat_id,
+            'gambar' => null
         ]);
+        if($request->hasFile('gambar')){
+            $file = $request->file('gambar');
+            $fileName = $this->quickRandom().'.'.$file->extension();
+            $path = $file->storeAs('kebun', $fileName, 'public');
+            $data->update([
+                'gambar' => $path
+            ]);
+        }
         return response()->json([
             'message' => 'Kebun berhasil ditambah'
         ]);
@@ -59,6 +68,10 @@ class KebunController extends Controller
 
     public function destroy($id){
         $cari = Kebun::findOrFail($id);
+        $path = storage_path('app/public/'.$cari->gambar);
+        if(File::exists($path)){
+            File::delete($path);
+        }
         $cari->delete();
         return response()->json([
             'message' => 'Kebun berhasil dihapus'
@@ -68,5 +81,11 @@ class KebunController extends Controller
     public function histori($id){
         $histori = Histori::where('id_kebun', $id)->get();
         return response()->json(HistoriResource::collection($histori));
+    }
+
+    public static function quickRandom($length = 16)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 }
