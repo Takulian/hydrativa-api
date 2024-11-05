@@ -21,7 +21,8 @@ class AuthController extends Controller
             'username' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
-            'name' => 'required'
+            'name' => 'required',
+            'telp' => 'required'
         ]);
         User::create([
             'role' => 1,
@@ -29,6 +30,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'name' => $request->name,
+            'telp' => $request->telp
         ]);
         return response()->json([
             'message' => 'Akun berhasil dibuat'
@@ -53,7 +55,8 @@ class AuthController extends Controller
             'user' => [
                 'username' => $user->username,
                 'email' => $user->email,
-                'name' => $user->name
+                'name' => $user->name,
+                'telp' => $user->telp
             ]
         ]);
 
