@@ -22,6 +22,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/kebun', [KebunController::class, 'store']); #Menambah kebun
         Route::get('/kebun/list', [KebunController::class, 'profileKebun']); #Melihat kebun diri sendiri
         Route::get('/kebun/histori/{id}', [KebunController::class, 'histori'])->middleware('pemilik-kebun'); #lihat histori penyiraman
+        Route::post('/kebun/{id}', [KebunController::class, 'update'])->middleware('pemilik-kebun');
+        Route::delete('/kebun/{id}', [KebunController::class, 'destroy'])->middleware('pemilik-kebun');
     });
     Route::get('/verify-email', [AuthController::class, 'sendVerifLink']); #Kirim link verif-email ke email user
     Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
@@ -36,6 +38,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/alamat', [AlamatController::class, 'show']);
     Route::post('/alamat/add', [AlamatController::class, 'store']);
+    Route::post('/alamat/{id}', [AlamatController::class, 'update'])->middleware('pemilik-alamat');
+    Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->middleware('pemilik-alamat');
 });
 
 Route::post('/reset-password-link', [AuthController::class, 'sendResetLink']); #Kirim link reset password ke email user
