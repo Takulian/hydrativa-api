@@ -45,11 +45,5 @@ Route::post('/login',[AuthController::class, 'login']); #Login aja ga lebih
 
 Route::patch('/kebun/status/{id}', [KebunController::class, 'updateStatus']); #Update Status Kebun, otomatis membuat histori
 
-<<<<<<< HEAD
 Route::post('/sensor', [HydrativaController::class, 'store']);
 Route::get('/show', [HydrativaController::class, 'show']);
-=======
-
-
-Route::get('/test-reset', [AuthController::class, 'testReset'])->middleware('signed');
->>>>>>> 0a552d28eda19475585733e7056ca5d9eca4fd1e
