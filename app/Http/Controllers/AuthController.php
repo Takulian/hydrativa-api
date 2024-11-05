@@ -21,16 +21,14 @@ class AuthController extends Controller
             'username' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
+            'name' => 'required'
         ]);
         User::create([
             'role' => 1,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname
+            'name' => $request->name,
         ]);
         return response()->json([
             'message' => 'Akun berhasil dibuat'
@@ -49,7 +47,15 @@ class AuthController extends Controller
                 'message' => 'Username atau Password salah.'
             ], 401);
         }
-        return $user->createToken($request->username)->plainTextToken;
+        $token = $user->createToken($request->username)->plainTextToken;
+        return response()->json([
+            'token' => $token,
+            'user' => [
+                'username' => $user->username,
+                'email' => $user->email,
+                'name' => $user->name
+            ]
+        ]);
 
     }
 
