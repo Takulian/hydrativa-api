@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             'verification_email' => $verif,
             'name' => $this->name,
             'telepon' => $this->telp,
+            'gambar' => 'http://127.0.0.1:8000/storage/' . $this->gambar
         ];
     }
 }

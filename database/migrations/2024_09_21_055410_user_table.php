@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telp')->unique();
             $table->string('name');
+            $table->string('gambar')->nullable();
 
             $table->timestamps();
         });

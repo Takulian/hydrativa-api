@@ -30,7 +30,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'name' => $request->name,
-            'telp' => $request->telp
+            'telp' => $request->telp,
+            'gambar' => null
         ]);
         return response()->json([
             'message' => 'Akun berhasil dibuat'
@@ -57,7 +58,8 @@ class AuthController extends Controller
                 'role' => $user->role,
                 'email' => $user->email,
                 'name' => $user->name,
-                'telp' => $user->telp
+                'telp' => $user->telp,
+                'gambar' => 'http://127.0.0.1:8000/storage/' . $this->gambar
             ]
         ]);
 
@@ -131,6 +133,10 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Password telah diubah'
         ]);
+    }
+
+    public function updatePhoto(Request $request){
+
     }
 
 }
