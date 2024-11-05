@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\PetaniMiddleware;
 use App\Http\Middleware\PemilikKebunMiddleware;
+use App\Http\Middleware\PemilikAlamatMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -18,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin'=> AdminMiddleware::class,
             'petani'=> PetaniMiddleware::class,
-            'pemilik-kebun' => PemilikKebunMiddleware::class
+            'pemilik-kebun' => PemilikKebunMiddleware::class,
+            'pemilik-alamat' => PemilikAlamatMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
