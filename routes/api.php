@@ -35,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/rating/{id}', [RatingController::class, 'rating']);
 
     Route::get('/alamat', [AlamatController::class, 'show']);
+    Route::post('/alamat/add', [AlamatController::class, 'store']);
 });
 
 Route::post('/reset-password-link', [AuthController::class, 'sendResetLink']); #Kirim link reset password ke email user
