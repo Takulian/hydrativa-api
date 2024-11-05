@@ -17,6 +17,7 @@ class TransaksiItemResource extends JsonResource
         return [
             'id' =>$this->transaksi_item_id,
             'nama_produk'=>$this->produk->nama_produk,
+            'gambar' => $this->produk->gambar,
             'quantity'=>$this->quantity,
             'harga' => $this->produk->harga
         ];
