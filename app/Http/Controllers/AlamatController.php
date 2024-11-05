@@ -9,25 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AlamatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -40,10 +23,10 @@ class AlamatController extends Controller
             'kabupaten' => 'required',
             'provinsi' => 'required',
             'kodepos' => 'required',
-            'isPrimary' => 'integer', 
+            'isPrimary' => 'integer',
             'catatan_kurir' => 'nullable|string',
         ]);
-        
+
         Alamat::create([
             'id_user' => Auth::user()->user_id,
             'label_alamat' => $data['label_alamat'],
@@ -58,42 +41,25 @@ class AlamatController extends Controller
             'isPrimary' => $data['isPrimary'],
             'catatan_kurir' => $data['catatan_kurir'],
         ]);
-        
+
         return response()->json([
             'message' => 'Alamat berhasil ditambah'
         ]);
-        
+
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show()
     {
         $user = Auth::user();
         $cari = Alamat::where('id_user', $user->user_id)->get();
-        return AlamatResource::collection($cari);
+        return response()->json(AlamatResource::collection($cari));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Alamat $alamat)
+    public function update(Request $request, $id)
     {
-        //
+        $cari = Alamat::findOrFail($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Alamat $alamat)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Alamat $alamat)
     {
         //
