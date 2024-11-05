@@ -58,10 +58,40 @@ class AlamatController extends Controller
     public function update(Request $request, $id)
     {
         $cari = Alamat::findOrFail($id);
+        $data = $request->validate([
+            'label_alamat' => 'required',
+            'nama_penerima' => 'required',
+            'no_telepon' => 'required',
+            'detail' => 'required',
+            'kelurahan' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+            'kodepos' => 'required',
+            'isPrimary' => 'integer',
+            'catatan_kurir' => 'nullable|string',
+        ]);
+
+        $cari->update($request->all());
+        return response()->json([
+            'message' => 'Alamat berhasil diperbarui'
+        ]);
+
+
     }
 
-    public function destroy(Alamat $alamat)
+    public function destroy($id)
     {
-        //
+        $cari = Alamat::findOrFail($id);
+        if ($cari->isPrimary == false) {
+            $cari->delete();
+            return response()->json([
+                'message' => 'Alamat berhasil dihapus'
+            ]);
+        } else{
+            return response()->json([
+                'message' => 'Alamat utama tidak dapat dihapus'
+            ]);
+        }
     }
 }
