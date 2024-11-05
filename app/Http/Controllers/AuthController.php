@@ -54,6 +54,7 @@ class AuthController extends Controller
             'token' => $token,
             'user' => [
                 'username' => $user->username,
+                'role' => $user->role,
                 'email' => $user->email,
                 'name' => $user->name,
                 'telp' => $user->telp
@@ -66,12 +67,12 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json([
             'message' => 'Logout berhasil'
-        ]);
+        ], 200);
     }
 
     public function aboutme(Request $request){
         $user = Auth::user();
-        return new UserResource($user);
+        return response()->json(new UserResource($user));
     }
 
     public function sendVerifLink(){

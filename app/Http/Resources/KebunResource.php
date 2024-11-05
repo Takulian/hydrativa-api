@@ -15,7 +15,7 @@ class KebunResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->kebun_id,
+            'kebun_id' => $this->kebun_id,
             'nama_kebun' => $this->nama_kebun,
             'luas_lahan' => $this->luas_lahan,
             'lokasi_kebun' => $this->lokasi_kebun,

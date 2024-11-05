@@ -35,6 +35,6 @@ class TransaksiItemController extends Controller
     public function show(){
         $user = Auth::user();
         $cari = TransaksiItem::where('id_user', $user->user_id)->get();
-        return TransaksiItemResource::collection($cari);
+        return response()->json(TransaksiItemResource::collection($cari));
     }
 }
