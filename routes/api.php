@@ -8,6 +8,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksiItemController;
+use App\Http\Controllers\HydrativaController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [AuthController::class, 'aboutme']); #Melihat Profil diri sendiri
@@ -38,3 +39,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']); #Login aja ga lebih
 
 Route::patch('/kebun/status/{id}', [KebunController::class, 'updateStatus']); #Update Status Kebun, otomatis membuat histori
+
+Route::post('/sensor', [HydrativaController::class, 'store']);
+Route::get('/show', [HydrativaController::class, 'show']);
