@@ -8,6 +8,7 @@ use App\Models\Kebun;
 use App\Models\Histori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Resources\KebunResource;
 use App\Http\Resources\HistoriResource;
 
