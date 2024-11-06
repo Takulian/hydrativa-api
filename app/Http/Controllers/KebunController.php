@@ -59,7 +59,7 @@ class KebunController extends Controller
         ]);
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
         $cari = Kebun::findOrFail($id);
         $request->validate([
             'nama_kebun'=>'required',

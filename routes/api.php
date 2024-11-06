@@ -43,6 +43,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->middleware('pemilik-alamat');
     Route::get('/alamat/primary/{id}'. [AlamatController::class, 'utama']);
     Route::post('/me/photo', [AuthController::class, 'updatePhoto']);
+    Route::post('/me/update', [AuthController::class, 'update']);
 });
 
 Route::post('/reset-password-link', [AuthController::class, 'sendResetLink']); #Kirim link reset password ke email user

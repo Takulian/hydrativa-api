@@ -158,6 +158,20 @@ class AuthController extends Controller
 
     }
 
+    public function update(Request $request){
+        $user = Auth::user();
+        $request->validate([
+            'username' => 'required',
+            'jenis_kelamin' => 'required',
+            'name' => 'required',
+            'telp' => 'required'
+        ]);
+        $user->update($request->all());
+        return response()->json([
+            'message' => 'Data profile telah diupdate'
+        ]);
+    }
+
     public static function quickRandom($length = 16)
     {
         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
