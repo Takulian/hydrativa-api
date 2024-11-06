@@ -147,9 +147,14 @@ class AuthController extends Controller
             $user->update([
                 'gambar' => $path
             ]);
+            return response()->json([
+                'message' => 'Foto profile berhasil di-update'
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Foto profile gagal dii-update'
+            ], 500);
         }
-
-
 
     }
 
