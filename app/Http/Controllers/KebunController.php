@@ -26,7 +26,16 @@ class KebunController extends Controller
 
     public function detailKebun($id){
         $kebun = Kebun::findOrFail($id);
-        return response()->json(new KebunResource($kebun));
+        $histori_terakhir = $kebun->histori()->latest()->first();
+        return response()->json([
+            'kebun_id' => $kebun->kebun_id,
+            'nama_kebun' => $kebun->nama_kebun,
+            'luas_lahan' => $kebun->luas_lahan,
+            'lokasi_kebun' => $kebun->lokasi_kebun,
+            'moisture' => $histori_terakhir->moisture,
+            'pH' => $histori_terakhir->pH,
+            'status' => $histori_terakhir->status
+        ]);
     }
 
     public function store(Request $request){
@@ -37,13 +46,12 @@ class KebunController extends Controller
             'kode_alat' => 'required'
         ]);
 
-        $alat = Alat::where('kode_alat', $request->kode_alat)->first();
         $data = Kebun::create([
             'id_user'=>Auth::user()->user_id,
             'nama_kebun'=>$request->nama_kebun,
             'luas_lahan'=>$request->luas_lahan,
             'lokasi_kebun'=>$request->lokasi_kebun,
-            'id_alat' =>$alat->alat_id,
+            'id_alat' =>$request->kode_alat,
             'gambar' => null
         ]);
         if($request->hasFile('gambar')){
@@ -81,6 +89,24 @@ class KebunController extends Controller
         $cari->delete();
         return response()->json([
             'message' => 'Kebun berhasil dihapus'
+        ]);
+    }
+
+    public function updateStatus(Request $request,String $id){
+        $request->validate([
+            'moisture' => 'required',
+            'pH' => 'required',
+            'status' => 'required',
+        ]);
+        $kebun = Kebun::where('id_alat', $id)->first();
+        Histori::create([
+            'id_kebun' => $kebun->kebun_id,
+            'moisture' => $request->moisture,
+            'pH' => $request->pH,
+            'status' => $request->status
+        ]);
+        return response()->json([
+            'message' => 'Status berhasil diperbarui'
         ]);
     }
 

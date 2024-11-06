@@ -17,8 +17,8 @@ return new class extends Migration
                 ->constrained('kebun', 'kebun_id')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('moisture');
-            $table->string('pH');
+            $table->integer('moisture');
+            $table->float('pH', 8, 2);
             $table->string('status');
             $table->timestamps();
         });

@@ -11,14 +11,9 @@ class Alat extends Model
     use HasFactory;
     protected $table = 'alat';
     protected $primaryKey = 'alat_id';
-    protected $fillable = [
-        'kode_alat',
-        'moisture',
-        'pH',
-        'status'
-    ];
-
-    public $timestamps = false;
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = ['alat_id'];
 
     public function kebun(): HasOne
     {

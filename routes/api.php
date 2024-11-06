@@ -54,5 +54,5 @@ Route::get('/produk/{id}', [ProdukController::class, 'detail']);
 Route::get('/rate/{id}', [RatingController::class,'rate']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']); #Login aja ga lebih
-Route::patch('/kebun/status/{id}', [AlatController::class, 'updateStatus']); #Update Status Kebun, otomatis membuat histori
+Route::post('/kebun/status/{id}', [KebunController::class, 'updateStatus']);
 Route::get('/sensor', [AlatController::class, 'show']);

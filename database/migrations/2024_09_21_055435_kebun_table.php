@@ -17,8 +17,10 @@ return new class extends Migration
                 ->constrained('user', 'user_id')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignId('id_alat')
-                ->constrained('alat', 'alat_id')
+            $table->string('id_alat');
+            $table->foreign('id_alat')
+                ->references('alat_id')
+                ->on('alat')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->string('nama_kebun');

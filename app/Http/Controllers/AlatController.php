@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Alat;
+use App\Models\Histori;
 use Illuminate\Http\Request;
 
 class AlatController extends Controller
@@ -14,31 +15,21 @@ class AlatController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'kode_alat' => 'required|string',
-            'moisture' => 'required|integer',
-            'pH' => 'required|numeric',
-            'status' => 'required|string',
-        ]);
+        $kode = $this->quickRandom();
         Alat::create([
-            'kode_alat' => $request->kode_alat,
-            'moisture' => $request->moisture,
-            'pH' => $request->pH,
-            'status' => $request->status,
+            'alat_id' => $kode
         ]);
-        return response()->json(['message' => 'Alat berhasil ditambahkan'], 200);
+        return response()->json([
+            'message' => 'Alat berhasil ditambahkan',
+            'kode' => $kode
+        ], 200);
     }
 
-    public function updateStatus(Request $request,String $id){
-        $data = $request->validate([
-            'moisture'=>'required',
-            'pH'=>'required',
-            'status' => 'required'
-        ]);
-        $alat = alat::findOrFail($id);
-        $alat->update($request->all());
-        return response()->json([
-            'message' => 'Status berhasil diperbarui'
-        ]);
+    public static function quickRandom($length = 6)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $prefix = 'HYD_';
+        $random = substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+        return $prefix.$random;
     }
 }
