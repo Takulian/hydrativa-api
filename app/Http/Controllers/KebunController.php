@@ -24,6 +24,11 @@ class KebunController extends Controller
         return response()->json(KebunResource::collection($kebun));
     }
 
+    public function detailKebun($id){
+        $kebun = Kebun::findOrFail($id);
+        return response()->json(new KebunResource($kebun));
+    }
+
     public function store(Request $request){
         $data = $request->validate([
             'nama_kebun'=>'required',

@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/kebun/histori/{id}', [KebunController::class, 'histori'])->middleware('pemilik-kebun'); #lihat histori penyiraman
         Route::post('/kebun/{id}', [KebunController::class, 'update'])->middleware('pemilik-kebun');
         Route::delete('/kebun/{id}', [KebunController::class, 'destroy'])->middleware('pemilik-kebun');
+        Route::get('/kebun/detail/{id}', [KebunController::class, 'detailKebun'])->middleware('pemilik-kebun');
     });
     Route::get('/verify-email', [AuthController::class, 'sendVerifLink']); #Kirim link verif-email ke email user
     Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
