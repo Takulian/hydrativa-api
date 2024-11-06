@@ -19,7 +19,8 @@ class TransaksiItemResource extends JsonResource
             'nama_produk'=>$this->produk->nama_produk,
             'gambar' => $this->produk->gambar,
             'quantity'=>$this->quantity,
-            'harga' => $this->produk->harga
+            'harga' => $this->produk->harga,
+            'gambar' => 'http://127.0.0.1:8000/storage/'.$this->produk->gambar
         ];
     }
 }
