@@ -139,7 +139,24 @@ class AuthController extends Controller
     }
 
     public function updatePhoto(Request $request){
+        $user = Auth::user();
+        if($request->hasFile('gambar')){
+            $file = $request->file('gambar');
+            $fileName = $this->quickRandom().'.'.$file->extension();
+            $path = $file->storeAs('foto_profile', $fileName, 'public');
+            $user->update([
+                'gambar' => $path
+            ]);
+        }
 
+
+
+    }
+
+    public static function quickRandom($length = 16)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 
 }
