@@ -21,6 +21,7 @@ class AuthController extends Controller
             'username' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
+            'jenis_kelamin' => 'required',
             'name' => 'required',
             'telp' => 'required'
         ]);
@@ -30,6 +31,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'name' => $request->name,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'telp' => $request->telp,
             'gambar' => null
         ]);
@@ -59,7 +61,8 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'name' => $user->name,
                 'telp' => $user->telp,
-                'gambar' => $user->gambar ? url('storage/' . $user->gambar) : null
+                'jenis_kelamin' => $user->jenis_kelamin,
+                'gambar' => 'http://127.0.0.1:8000/storage/' . $user->gambar
             ]
         ]);
 
