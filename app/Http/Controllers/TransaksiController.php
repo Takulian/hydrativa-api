@@ -14,6 +14,15 @@ class TransaksiController extends Controller
     public function store(Request $request){
         $user = Auth::user();
 
+        foreach ($request->id_item as $id_item) {
+            $cari = TransaksiItem::findOrFail($id_item);
+            if($cari->id_transaksi){
+                return response()->json([
+                    'message' => 'Item sudah memiliki transaksi.'
+                ],405);
+            }
+        }
+
         Config::$serverKey = config('midtrans.serverKey');
         Config::$isProduction = config('midtrans.isProduction');
         Config::$isSanitized = config('midtrans.isSanitized');
