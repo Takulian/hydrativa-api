@@ -16,7 +16,7 @@ class ProdukController extends Controller
     }
 
     public function detail($id){
-        $produk = Produk::findOrFail($id);
+        $produk = Produk::with('transaksiItem.rating')->find($id);
         return response()->json(new ProdukResource($produk));
     }
 

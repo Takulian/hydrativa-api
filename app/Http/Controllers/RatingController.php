@@ -23,21 +23,34 @@ class RatingController extends Controller
         $data = $request->validate([
             'rating' => "required"
         ]);
-        Rating::create([
-            'id_user'=>$user->user_id,
-            'id_transaksi_item'=> $id,
-            'rating'=>$request->rating,
-            'comment'=>$request->comment,
-            'gambar'=>$request->gambar
-        ]);
-        $keranjang = TransaksiItem::findOrFail($id);
-        $keranjang->update([
-            'israted' => true
-        ]);
-        return response()->json([
-            'message' => 'Rating berhasil ditambahkan'
-        ]);
-    }
+        $keranjang = TransaksiItem::with('transaksi')->find($id);
+        if(!$keranjang->id_transaksi){
+            return response()->json([
+                'message' => 'Produk belum dibeli'
+            ], 405);
+        }else{
+            if($keranjang->transaksi->status == 'success'){
+                Rating::create([
+                    'id_user'=>$user->user_id,
+                    'id_transaksi_item'=> $id,
+                    'rating'=>$request->rating,
+                    'comment'=>$request->comment,
+                    'gambar'=>$request->gambar
+                ]);
+                $keranjang->update([
+                    'israted' => true
+                ]);
+                return response()->json([
+                    'message' => 'Rating berhasil ditambahkan'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'message' => 'Transaksi belum dibayar.'
+                ], 405);
+            }
+            }
+        }
 
     public function rate($id){
         $data = TransaksiItem::where('id_produk', $id)->where('israted', true)->get();
