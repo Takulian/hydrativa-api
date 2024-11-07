@@ -32,9 +32,10 @@ class KebunController extends Controller
             'nama_kebun' => $kebun->nama_kebun,
             'luas_lahan' => $kebun->luas_lahan,
             'lokasi_kebun' => $kebun->lokasi_kebun,
+            'gambar' => $kebun->gambar,
             'moisture' => $histori_terakhir->moisture,
             'pH' => $histori_terakhir->pH,
-            'status' => $histori_terakhir->status
+            'status' => $histori_terakhir->status,
         ]);
     }
 
