@@ -21,7 +21,10 @@ class ProdukResource extends JsonResource
             'deskripsi' => $this->deskripsi,
             'harga' => $this->harga,
             'gambar' => 'http://127.0.0.1:8000/storage/' . $this->gambar,
-            'stok' => $this->stok
+            'stok' => $this->stok,
+            'rating' => $this->transaksiItem->map(function ($item) {
+                return $item->rating;
+            })->filter()->values()->all()
         ];
     }
 }
