@@ -25,7 +25,7 @@ class Rating extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'user_id');
     }
-    public function trnasaksiItem(): BelongsTo
+    public function transaksiItem(): BelongsTo
     {
         return $this->belongsTo(TransaksiItem::class, 'id_transaksi_item', 'transaksi_item_id');
     }
