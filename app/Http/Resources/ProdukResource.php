@@ -25,6 +25,7 @@ class ProdukResource extends JsonResource
         // Map the ratings and return user comments
         $ratings = $this->transaksiItem->map(function ($item) {
             return $item->rating ? [
+                'profile_picture' => 'http://127.0.0.1:8000/storage/' . $item->rating->user->gambar,
                 'nama_user' => $item->rating->user->name,
                 'rating_user' => $item->rating->rating,
                 'komen_user' => $item->rating->comment,
