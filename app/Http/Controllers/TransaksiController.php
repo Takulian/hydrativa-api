@@ -91,13 +91,10 @@ class TransaksiController extends Controller
 
 
         $response = $transaksi->map(function ($transaksi) {
-            $totalHarga = $transaksi->transaksiItem->sum(function ($item) {
-                return $item->produk->harga * $item->quantity;
-            });
             return [
                 'transaksi_id' => $transaksi->transaksi_id,
                 'status' => $transaksi->status,
-                'total_harga' => $totalHarga,
+                'total_harga' => $transaksi->total,
                 'produk' => $transaksi->transaksiItem->map(function ($item) {
                     return [
                         'produk_id' => $item->produk->produk_id,
