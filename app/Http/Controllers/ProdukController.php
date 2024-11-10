@@ -61,10 +61,27 @@ class ProdukController extends Controller
             'deskripsi' => 'required',
             'harga' => 'required',
             'gambar' => 'required',
-            'stok' => 'required|integer|min:0', // Add stok validation
+            'stok' => 'required|integer|min:0'
         ]);
-
-        $produk->update($request->all());
+        if($request->hasFile('gambar')){
+            $pathLama = storage_path('app/public/'.$produk->gambar);
+            if(File::exists($pathLama)){
+                File::delete($pathLama);
+                $file = $request->file('gambar');
+                $fileName = $this->quickRandom().'.'.$file->extension();
+                $path = $file->storeAs('kebun', $fileName, 'public');
+                $produk->update([
+                    'gambar' => $path
+                ]);
+            }
+        }
+        $produk->update([
+            'nama_produk' => $request->nama_produk,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+            'stok' => $request->stok
+        ]);
         return response()->json([
             'message' => 'Produk berhasil diperbarui'
         ]);
