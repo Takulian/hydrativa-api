@@ -82,6 +82,33 @@ class TransaksiController extends Controller
 
     public function show(){
         $user = Auth::user();
-        Transaski::where('id_user', $user->user_id)->get();
+
+        $transaksi = Transaksi::whereHas('transaksiItem', function ($query) use ($user) {
+            $query->where('id_user', $user->user_id);
+        })
+        ->with(['transaksiItem.produk'])
+        ->get();
+
+
+        $response = $transaksi->map(function ($transaksi) {
+            $totalHarga = $transaksi->transaksiItem->sum(function ($item) {
+                return $item->produk->harga * $item->quantity;
+            });
+            return [
+                'transaksi_id' => $transaksi->transaksi_id,
+                'status' => $transaksi->status,
+                'total_harga' => $totalHarga,
+                'produk' => $transaksi->transaksiItem->map(function ($item) {
+                    return [
+                        'produk_id' => $item->produk->produk_id,
+                        'produk_name' => $item->produk->nama_produk,
+                        'harga' => $item->produk->harga,
+                        'quantity' => $item->quantity,
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json($response);
     }
 }
