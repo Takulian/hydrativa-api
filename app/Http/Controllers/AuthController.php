@@ -141,6 +141,10 @@ class AuthController extends Controller
     public function updatePhoto(Request $request){
         $user = Auth::user();
         if($request->hasFile('gambar')){
+            $pathLama = storage_path('app/public/'.$user->gambar);
+            if(File::exists($pathLama)){
+                File::delete($pathLama);
+            }
             $file = $request->file('gambar');
             $fileName = $this->quickRandom().'.'.$file->extension();
             $path = $file->storeAs('foto_profile', $fileName, 'public');
