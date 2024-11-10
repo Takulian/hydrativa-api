@@ -73,9 +73,26 @@ class KebunController extends Controller
         $request->validate([
             'nama_kebun'=>'required',
             'luas_lahan'=>'required',
-            'lokasi_kebun'=>'required'
+            'lokasi_kebun'=>'required',
+            'gambar' => 'required'
         ]);
-        $cari->update($request->all());
+        if($request->hasFile('gambar')){
+            $pathLama = storage_path('app/public/'.$cari->gambar);
+            if(File::exists($pathLama)){
+                File::delete($pathLama);
+                $file = $request->file('gambar');
+                $fileName = $this->quickRandom().'.'.$file->extension();
+                $path = $file->storeAs('kebun', $fileName, 'public');
+                $cari->update([
+                    'gambar' => $path
+                ]);
+            }
+        }
+        $cari->update([
+            'nama_kebun' => $request->nama_kebun,
+            'luas_lahan' => $request->luas_lahan,
+            'lokasi_kebun' => $request->lokasi_kebun
+        ]);
         return response()->json([
             'message' => 'Kebun berhasil di-update'
         ]);
