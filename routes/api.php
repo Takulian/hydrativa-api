@@ -27,13 +27,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/kebun/detail/{id}', [KebunController::class, 'detailKebun'])->middleware('pemilik-kebun');
     });
     Route::get('/verify-email', [AuthController::class, 'sendVerifLink']); #Kirim link verif-email ke email user
+
     Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
     Route::get('/me', [AuthController::class, 'aboutme']); #Melihat Profil diri sendiri
+
     Route::post('/keranjang/add', [TransaksiItemController::class, 'add']); #Menambah keranjang
     Route::get('/keranjang', [TransaksiItemController::class, 'show']); #Lihat keranjang
+
+    Route::get('/transaksi', [TransaksiController::class, 'show']);
     Route::post('/bayar', [TransaksiController::class, 'store']);
     Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
     Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
+
     Route::get('/unrated', [RatingController::class, 'unrated']);
     Route::post('/rating/{id}', [RatingController::class, 'rating']);
 
