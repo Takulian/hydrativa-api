@@ -27,6 +27,18 @@ class KebunController extends Controller
     public function detailKebun($id){
         $kebun = Kebun::findOrFail($id);
         $histori_terakhir = $kebun->histori()->latest()->first();
+        if(!$histori_terakhir){
+            return response()->json([
+                'kebun_id' => $kebun->kebun_id,
+                'nama_kebun' => $kebun->nama_kebun,
+                'luas_lahan' => $kebun->luas_lahan,
+                'lokasi_kebun' => $kebun->lokasi_kebun,
+                'gambar' => $kebun->gambar,
+                'moisture' => 0,
+                'pH' => 0.00,
+                'status' => "Kering",
+            ]);
+        }
         return response()->json([
             'kebun_id' => $kebun->kebun_id,
             'nama_kebun' => $kebun->nama_kebun,

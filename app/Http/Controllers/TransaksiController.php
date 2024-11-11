@@ -97,6 +97,7 @@ class TransaksiController extends Controller
                 'total_harga' => $transaksi->total,
                 'produk' => $transaksi->transaksiItem->map(function ($item) {
                     return [
+                        'transaksi_item_id' => $item->transaksi_item_id,
                         'produk_id' => $item->produk->produk_id,
                         'produk_name' => $item->produk->nama_produk,
                         'harga' => $item->produk->harga,
