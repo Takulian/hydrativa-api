@@ -147,7 +147,7 @@ class TransaksiController extends Controller
                     return [
                         'transaksi_item_id' => $item->transaksi_item_id,
                         'produk_id' => $item->produk->produk_id,
-                        'produk_name' => $item->produk->nama_produk,
+                        'nama_produk' => $item->produk->nama_produk,
                         'israted' => $item->israted,
                         'harga' => $item->produk->harga,
                         'quantity' => $item->quantity,
