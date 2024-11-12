@@ -94,6 +94,7 @@ class TransaksiController extends Controller
             return [
                 'transaksi_id' => $transaksi->transaksi_id,
                 'status' => $transaksi->status,
+                'resi' => $transaksi->resi,
                 'total_harga' => $transaksi->total,
                 'produk' => $transaksi->transaksiItem->map(function ($item) {
                     return [
