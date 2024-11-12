@@ -118,6 +118,8 @@ class TransaksiController extends Controller
         $user = Auth::user();
 
         $transaksi = Transaksi::where('status', 'success')
+        ->orWhere('status', 'delivering')
+        ->orWhere('status', 'delivered')
         ->with(['transaksiItem.produk', 'alamat.user'])
         ->get();
 
