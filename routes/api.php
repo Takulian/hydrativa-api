@@ -17,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/produk', [ProdukController::class, 'store']); #Menambah produk
         Route::post('/produk/{id}', [ProdukController::class, 'edit']); #Edit produk
         Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']); #Menghapus produk
+
+        Route::post('/transaksi/resi/{id}', [TransaksiController::class, 'resi']);
     });
     Route::middleware(['petani'])->group(function () {
         Route::post('/kebun', [KebunController::class, 'store']); #Menambah kebun
