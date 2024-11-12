@@ -40,7 +40,7 @@ class RatingController extends Controller
                         $itemData['rating'] = [
                             'rating_value' => $item->rating->rating,
                             'comment' => $item->rating->comment,
-                            'gambar' => url('/storage/' . $item->rating->gambar)
+                            'gambar' => $item->rating->gambar ? url('/storage/' . $item->rating->gambar) : null
                         ];
                     }
 
