@@ -120,4 +120,17 @@ class TransaksiController extends Controller
             'message' => 'Transaksi sudah sampai ke tempat tujuan'
         ]);
     }
+
+    public function resi(Request $request, $id){
+        $request->validate([
+            'resi' => 'required'
+        ]);
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update([
+            'resi' => $request->resi,
+            'status' => 'delivering'
+        ]);
+
+
+    }
 }
