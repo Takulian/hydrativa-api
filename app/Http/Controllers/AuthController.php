@@ -9,6 +9,7 @@ use App\Mail\EmailVerificationLink;
 use Illuminate\Support\Facades\URL;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
