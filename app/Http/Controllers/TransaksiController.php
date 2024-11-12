@@ -110,4 +110,14 @@ class TransaksiController extends Controller
 
         return response()->json($response);
     }
+
+    public function sampai($id){
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update([
+            'status'=>'delivered'
+        ]);
+        return response()->json([
+            'message' => 'Transaksi sudah sampai ke tempat tujuan'
+        ]);
+    }
 }
