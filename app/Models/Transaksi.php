@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Alamat;
 use App\Models\TransaksiItem;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,8 +29,8 @@ class Transaksi extends Model
     {
         return $this->hasMany(TransaksiItem::class, 'id_transaksi', 'transaksi_id');
     }
-    public function alamat(): HasOne
+    public function alamat(): belongsTo
     {
-        return $this->hasOne(Alamat::class, 'alamat_tujuan', 'alamat_id');
+        return $this->belongsTo(Alamat::class, 'id_alamat', 'alamat_id');
     }
 }
