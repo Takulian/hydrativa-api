@@ -39,8 +39,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
     Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
 
-    Route::get('/unrated', [RatingController::class, 'unrated']);
-    Route::post('/rating/{id}', [RatingController::class, 'rating']);
+    Route::get('/ulasan', [RatingController::class, 'unrated']);
+    Route::post('/ulas/{id}', [RatingController::class, 'rating']);
 
     Route::get('/alamat', [AlamatController::class, 'show']);
     Route::post('/alamat/add', [AlamatController::class, 'store']);
@@ -56,7 +56,6 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middle
 Route::get('/verified', [AuthController::class, 'verifEmail'])->middleware('signed')->name('verif.email'); #Memverifikasi email
 Route::get('/produk', [ProdukController::class, 'show']); #Melihat semua produk
 Route::get('/produk/{id}', [ProdukController::class, 'detail']);
-Route::get('/rate/{id}', [RatingController::class,'rate']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']); #Login aja ga lebih
 Route::post('/kebun/status/{id}', [KebunController::class, 'updateStatus']);
