@@ -60,8 +60,7 @@ class ProdukController extends Controller
             'nama_produk' => 'required',
             'kategori' => 'required',
             'deskripsi' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'harga' => 'required',            
             'stok' => 'required|integer|min:0'
         ]);
         if($request->hasFile('gambar')){
