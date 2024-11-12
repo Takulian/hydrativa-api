@@ -100,6 +100,7 @@ class TransaksiController extends Controller
                         'transaksi_item_id' => $item->transaksi_item_id,
                         'produk_id' => $item->produk->produk_id,
                         'produk_name' => $item->produk->nama_produk,
+                        'israted' => $item->israted,
                         'harga' => $item->produk->harga,
                         'quantity' => $item->quantity,
                         'gambar' => url('/storage/' . $item->produk->gambar)
