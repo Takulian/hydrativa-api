@@ -18,6 +18,7 @@ class Transaksi extends Model
     protected $fillable = [
         'total',
         'status',
+        'resi',
         'snaptoken'
     ];
 

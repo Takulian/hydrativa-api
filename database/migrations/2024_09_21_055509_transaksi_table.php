@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('transaksi_id');
             $table->integer('total');
             $table->string('status');
+            $table->string('resi')->nullable();
             $table->longText('snaptoken');
             $table->timestamps();
         });
