@@ -67,14 +67,22 @@ class RatingController extends Controller
                     'message' => 'Sudah dirating.'
                 ], 405);
             }else{
-                if($keranjang->transaksi->status == 'success'){
-                    Rating::create([
+                if($keranjang->transaksi->status == 'delivered'){
+                    $rating = Rating::create([
                         'id_user'=>$user->user_id,
                         'id_transaksi_item'=> $id,
                         'rating'=>$request->rating,
                         'comment'=>$request->comment,
-                        'gambar'=>$request->gambar
+                        'gambar'=>null
                     ]);
+                    if($request->hasFile('gambar')){
+                        $file = $request->file('gambar');
+                        $fileName = $this->quickRandom().'.'.$file->extension();
+                        $path = $file->storeAs('rating', $fileName, 'public');
+                        $rating->update([
+                            'gambar' => $path
+                        ]);
+                    }
                     $keranjang->update([
                         'israted' => true
                     ]);
@@ -84,11 +92,17 @@ class RatingController extends Controller
                 }
                 else{
                     return response()->json([
-                        'message' => 'Transaksi belum dibayar.'
+                        'message' => 'Pastikan barangmu sudah sampai yaa:)'
                     ], 405);
                 }
             }
         }
+    }
+
+    public static function quickRandom($length = 16)
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 
 }
