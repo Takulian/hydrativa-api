@@ -16,6 +16,10 @@ return new class extends Migration
             $table->integer('total');
             $table->string('status');
             $table->string('resi')->nullable();
+            $table->foreignId('id_alamat')
+                ->constrained('alamat', 'alamat_id')
+                ->noActionOnUpdate()
+                ->noActionOnDelete();
             $table->longText('snaptoken');
             $table->timestamps();
         });

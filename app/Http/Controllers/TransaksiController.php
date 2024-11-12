@@ -49,6 +49,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::create([
             'total' => $request->total,
             'status' => 'pending',
+            'id_alamat' => $request->id_alamat,
             'snaptoken' => $snapToken
         ]);
         foreach ($request->id_item as $id_item) {
