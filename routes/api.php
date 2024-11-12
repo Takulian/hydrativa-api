@@ -18,6 +18,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/produk/{id}', [ProdukController::class, 'edit']); #Edit produk
         Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']); #Menghapus produk
 
+        Route::get('/transaksi/admin', [TransaksiController::class, 'showAdmin']);
         Route::post('/transaksi/resi/{id}', [TransaksiController::class, 'resi']);
     });
     Route::middleware(['petani'])->group(function () {
