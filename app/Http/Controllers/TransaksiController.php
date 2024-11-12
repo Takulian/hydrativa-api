@@ -94,6 +94,7 @@ class TransaksiController extends Controller
             return [
                 'transaksi_id' => $transaksi->transaksi_id,
                 'status' => $transaksi->status,
+                'resi' => $transaksi->resi,
                 'total_harga' => $transaksi->total,
                 'produk' => $transaksi->transaksiItem->map(function ($item) {
                     return [
@@ -120,5 +121,18 @@ class TransaksiController extends Controller
         return response()->json([
             'message' => 'Transaksi sudah sampai ke tempat tujuan'
         ]);
+    }
+
+    public function resi(Request $request, $id){
+        $request->validate([
+            'resi' => 'required'
+        ]);
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update([
+            'resi' => $request->resi,
+            'status' => 'delivering'
+        ]);
+
+
     }
 }
