@@ -23,7 +23,8 @@ class ProdukResource extends JsonResource
 
         return [
             'id' => $this->produk_id,
-            'nama' => $this->nama_produk,
+            'nama_produk' => $this->nama_produk,            
+            'deskripsi' => $this->deskripsi,            
             'harga' => $this->harga,
             'gambar' => 'http://127.0.0.1:8000/storage/' . $this->gambar,
             'final_rating' => $finalRating
