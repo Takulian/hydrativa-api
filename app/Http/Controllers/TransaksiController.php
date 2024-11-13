@@ -58,7 +58,18 @@ class TransaksiController extends Controller
                 'id_transaksi' => $transaksi->transaksi_id
             ]);
         }
-        return response()->json($snapToken);
+        return response()->json([
+            'transaksi_id' => $transaksi->transaksi_id,
+            'snaptoken' => $transaksi->snaptoken
+        ]);
+    }
+
+    public function bayarUlang($id){
+        $transaksi = Transaksi::findOrFail($id);
+        return response()->json([
+            'transaksi_id' => $transaksi->transaksi_id,
+            'token' => $transaksi->snaptoken
+        ]);
     }
 
     public function berhasil($id){
