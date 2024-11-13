@@ -143,7 +143,7 @@ class TransaksiController extends Controller
                     'catatan_kurir' => $transaksi->alamat->catatan_kurir,
 
                 ],
-                'produk' => $transaksi->transaksiItem->map(function ($item) {
+                'transaksi_item' => $transaksi->transaksiItem->map(function ($item) {
                     return [
                         'transaksi_item_id' => $item->transaksi_item_id,
                         'produk_id' => $item->produk->produk_id,
