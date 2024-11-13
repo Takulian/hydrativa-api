@@ -21,14 +21,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/transaksi/admin', [TransaksiController::class, 'showAdmin']);
         Route::post('/transaksi/resi/{id}', [TransaksiController::class, 'resi']);
     });
-    Route::middleware(['petani'])->group(function () {
-        Route::post('/kebun', [KebunController::class, 'store']); #Menambah kebun
-        Route::get('/kebun/list', [KebunController::class, 'profileKebun']); #Melihat kebun diri sendiri
-        Route::get('/kebun/histori/{id}', [KebunController::class, 'histori'])->middleware('pemilik-kebun'); #lihat histori penyiraman
-        Route::post('/kebun/{id}', [KebunController::class, 'update'])->middleware('pemilik-kebun');
-        Route::delete('/kebun/{id}', [KebunController::class, 'destroy'])->middleware('pemilik-kebun');
-        Route::get('/kebun/detail/{id}', [KebunController::class, 'detailKebun'])->middleware('pemilik-kebun');
-    });
+
+    Route::post('/kebun', [KebunController::class, 'store']); #Menambah kebun
+    Route::get('/kebun/list', [KebunController::class, 'profileKebun']); #Melihat kebun diri sendiri
+    Route::get('/kebun/histori/{id}', [KebunController::class, 'histori'])->middleware('pemilik-kebun'); #lihat histori penyiraman
+    Route::post('/kebun/{id}', [KebunController::class, 'update'])->middleware('pemilik-kebun');
+    Route::delete('/kebun/{id}', [KebunController::class, 'destroy'])->middleware('pemilik-kebun');
+    Route::get('/kebun/detail/{id}', [KebunController::class, 'detailKebun'])->middleware('pemilik-kebun');
+
     Route::get('/verify-email', [AuthController::class, 'sendVerifLink']); #Kirim link verif-email ke email user
 
     Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
@@ -40,6 +40,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/transaksi', [TransaksiController::class, 'show']);
     Route::post('/sampai/{id}', [TransaksiController::class, 'sampai']);
     Route::post('/bayar', [TransaksiController::class, 'store']);
+    Route::get('/bayar/{id}', [TransaksiController::class, 'bayarUlang']);
     Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
     Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
 
