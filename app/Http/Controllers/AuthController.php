@@ -22,9 +22,9 @@ class AuthController extends Controller
             'username' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
-            'jenis_kelamin' => 'required',
+            // 'jenis_kelamin' => 'required',
             'name' => 'required',
-            'telp' => 'required'
+            // 'telp' => 'required'
         ]);
         User::create([
             'role' => 1,

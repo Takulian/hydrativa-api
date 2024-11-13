@@ -25,7 +25,7 @@ class RatingController extends Controller
                 'transaksi_id' => $transaksi->transaksi_id,
                 'status' => $transaksi->status,
                 'total_harga' => $transaksi->total,
-                'produk' => $transaksi->transaksiItem->map(function ($item) {
+                'transaksi_item' => $transaksi->transaksiItem->map(function ($item) {
                     $itemData = [
                         'transaksi_item_id' => $item->transaksi_item_id,
                         'israted' => $item->israted,
