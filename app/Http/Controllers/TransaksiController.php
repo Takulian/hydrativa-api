@@ -68,7 +68,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::findOrFail($id);
         return response()->json([
             'transaksi_id' => $transaksi->transaksi_id,
-            'token' => $transaksi->snaptoken
+            'snaptoken' => $transaksi->snaptoken
         ]);
     }
 
