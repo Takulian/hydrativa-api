@@ -13,7 +13,7 @@ class ProdukController extends Controller
 {
     public function show(){
         $produk = Produk::all();
-        return response()->json(ProdukResource::collection($produk));
+        return response()->json(['data' => ProdukResource::collection($produk)]);
     }
 
     public function detail($id){
