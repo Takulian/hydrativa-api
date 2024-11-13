@@ -24,9 +24,9 @@ class AlamatSeeder extends Seeder
                 "kabupaten" => "Kota Bogor",
                 "provinsi" => "Jawa Barat",
                 "kodepos" => "12345",
-                "isPrimary" => 0,
+                "isPrimary" => 1,
                 "catatan_kurir" => "Harap hubungi sebelum tiba",
-                "id_user" => 1     
+                "id_user" => 1
         ]);
     }
 }

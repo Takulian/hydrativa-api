@@ -23,25 +23,41 @@ class AlamatController extends Controller
             'kabupaten' => 'required',
             'provinsi' => 'required',
             'kodepos' => 'required',
-            'isPrimary' => 'integer',
             'catatan_kurir' => 'nullable|string',
         ]);
-
-        Alamat::create([
-            'id_user' => Auth::user()->user_id,
-            'label_alamat' => $data['label_alamat'],
-            'nama_penerima' => $data['nama_penerima'],
-            'no_telepon' => $data['no_telepon'],
-            'detail' => $data['detail'],
-            'kelurahan' => $data['kelurahan'],
-            'kecamatan' => $data['kecamatan'],
-            'kabupaten' => $data['kabupaten'],
-            'provinsi' => $data['provinsi'],
-            'kodepos' => $data['kodepos'],
-            'isPrimary' => $data['isPrimary'],
-            'catatan_kurir' => $data['catatan_kurir'],
-        ]);
-
+        $user = Auth::user();
+        $cari = Alamat::where('id_user', $user->user_id)->get();
+        if(!$cari){
+            Alamat::create([
+                'id_user' => Auth::user()->user_id,
+                'label_alamat' => $data['label_alamat'],
+                'nama_penerima' => $data['nama_penerima'],
+                'no_telepon' => $data['no_telepon'],
+                'detail' => $data['detail'],
+                'kelurahan' => $data['kelurahan'],
+                'kecamatan' => $data['kecamatan'],
+                'kabupaten' => $data['kabupaten'],
+                'provinsi' => $data['provinsi'],
+                'kodepos' => $data['kodepos'],
+                'isPrimary' => 1,
+                'catatan_kurir' => $data['catatan_kurir'],
+            ]);
+        }elseif($cari){
+            Alamat::create([
+                'id_user' => Auth::user()->user_id,
+                'label_alamat' => $data['label_alamat'],
+                'nama_penerima' => $data['nama_penerima'],
+                'no_telepon' => $data['no_telepon'],
+                'detail' => $data['detail'],
+                'kelurahan' => $data['kelurahan'],
+                'kecamatan' => $data['kecamatan'],
+                'kabupaten' => $data['kabupaten'],
+                'provinsi' => $data['provinsi'],
+                'kodepos' => $data['kodepos'],
+                'isPrimary' => 0,
+                'catatan_kurir' => $data['catatan_kurir'],
+            ]);
+        }
         return response()->json([
             'message' => 'Alamat berhasil ditambah'
         ]);
