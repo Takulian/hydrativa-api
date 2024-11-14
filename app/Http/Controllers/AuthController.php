@@ -27,7 +27,7 @@ class AuthController extends Controller
             // 'telp' => 'required'
         ]);
         User::create([
-            'role' => 1,
+            'role' => 2,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
