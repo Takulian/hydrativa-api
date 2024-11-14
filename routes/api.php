@@ -31,8 +31,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/verify-email', [AuthController::class, 'sendVerifLink']); #Kirim link verif-email ke email user
 
-    Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
-    Route::get('/me', [AuthController::class, 'aboutme']); #Melihat Profil diri sendiri
 
     Route::post('/keranjang/add', [TransaksiItemController::class, 'add']); #Menambah keranjang
     Route::get('/keranjang', [TransaksiItemController::class, 'show']); #Lihat keranjang
@@ -52,8 +50,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/alamat/{id}', [AlamatController::class, 'update'])->middleware('pemilik-alamat');
     Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->middleware('pemilik-alamat');
     Route::get('/alamat/primary/{id}', [AlamatController::class, 'utama']);
+
+    Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
+    Route::get('/me', [AuthController::class, 'aboutme']); #Melihat Profil diri sendiri
     Route::post('/me/photo', [AuthController::class, 'updatePhoto']);
     Route::post('/me/update', [AuthController::class, 'update']);
+    Route::post('/me/update/mobile', [AuthController::class, 'updateMobile']);
 });
 
 Route::post('/reset-password-link', [AuthController::class, 'sendResetLink']); #Kirim link reset password ke email user

@@ -177,6 +177,37 @@ class AuthController extends Controller
         ]);
     }
 
+    public function updateMobile(){
+        $user = Auth::user();
+        $request->validate([
+            'username' => 'required',
+            'jenis_kelamin' => 'required',
+            'name' => 'required',
+            'telp' => 'required'
+        ]);
+        if($request->hasFile('gambar')){
+            $pathLama = storage_path('app/public/'.$user->gambar);
+            if(File::exists($pathLama)){
+                File::delete($pathLama);
+            }
+            $file = $request->file('gambar');
+            $fileName = $this->quickRandom().'.'.$file->extension();
+            $path = $file->storeAs('foto_profile', $fileName, 'public');
+            $user->update([
+                'gambar' => $path
+            ]);
+        }
+        $user->update([
+            'username' => $request->username,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'name' => $request->name,
+            'telp' => $request->telp
+        ]);
+        return response()->json([
+            'message' => 'Data profile telah diupdate'
+        ]);
+    }
+
     public static function quickRandom($length = 16)
     {
         $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
