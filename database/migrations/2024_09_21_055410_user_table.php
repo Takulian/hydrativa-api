@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('password');
             $table->time('email_verified_at')->nullable();
             $table->string('email')->unique();
-            $table->string('telp')->unique();
-            $table->string('jenis_kelamin');
+            $table->string('telp')->unique()->nullable();
+            $table->string('jenis_kelamin')->nullable();
             $table->string('name');
             $table->string('gambar')->nullable();
 

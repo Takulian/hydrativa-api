@@ -9,6 +9,7 @@ use App\Mail\EmailVerificationLink;
 use Illuminate\Support\Facades\URL;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -21,9 +22,9 @@ class AuthController extends Controller
             'username' => 'required',
             'email' => ['required', 'email'],
             'password' => 'required',
-            'jenis_kelamin' => 'required',
+            // 'jenis_kelamin' => 'required',
             'name' => 'required',
-            'telp' => 'required'
+            // 'telp' => 'required'
         ]);
         User::create([
             'role' => 1,
@@ -171,6 +172,37 @@ class AuthController extends Controller
             'telp' => 'required'
         ]);
         $user->update($request->all());
+        return response()->json([
+            'message' => 'Data profile telah diupdate'
+        ]);
+    }
+
+    public function updateMobile(Request $request){
+        $user = Auth::user();
+        $request->validate([
+            'username' => 'required',
+            'jenis_kelamin' => 'required',
+            'name' => 'required',
+            'telp' => 'required'
+        ]);
+        if($request->hasFile('gambar')){
+            $pathLama = storage_path('app/public/'.$user->gambar);
+            if(File::exists($pathLama)){
+                File::delete($pathLama);
+            }
+            $file = $request->file('gambar');
+            $fileName = $this->quickRandom().'.'.$file->extension();
+            $path = $file->storeAs('foto_profile', $fileName, 'public');
+            $user->update([
+                'gambar' => $path
+            ]);
+        }
+        $user->update([
+            'username' => $request->username,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'name' => $request->name,
+            'telp' => $request->telp
+        ]);
         return response()->json([
             'message' => 'Data profile telah diupdate'
         ]);

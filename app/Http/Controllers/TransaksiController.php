@@ -49,6 +49,7 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::create([
             'total' => $request->total,
             'status' => 'pending',
+            'id_alamat' => $request->id_alamat,
             'snaptoken' => $snapToken
         ]);
         foreach ($request->id_item as $id_item) {
@@ -57,7 +58,18 @@ class TransaksiController extends Controller
                 'id_transaksi' => $transaksi->transaksi_id
             ]);
         }
-        return response()->json($snapToken);
+        return response()->json([
+            'transaksi_id' => $transaksi->transaksi_id,
+            'snaptoken' => $transaksi->snaptoken
+        ]);
+    }
+
+    public function bayarUlang($id){
+        $transaksi = Transaksi::findOrFail($id);
+        return response()->json([
+            'transaksi_id' => $transaksi->transaksi_id,
+            'snaptoken' => $transaksi->snaptoken
+        ]);
     }
 
     public function berhasil($id){
@@ -94,12 +106,14 @@ class TransaksiController extends Controller
             return [
                 'transaksi_id' => $transaksi->transaksi_id,
                 'status' => $transaksi->status,
+                'resi' => $transaksi->resi,
                 'total_harga' => $transaksi->total,
-                'produk' => $transaksi->transaksiItem->map(function ($item) {
+                'transaksi_item' => $transaksi->transaksiItem->map(function ($item) {
                     return [
                         'transaksi_item_id' => $item->transaksi_item_id,
                         'produk_id' => $item->produk->produk_id,
-                        'produk_name' => $item->produk->nama_produk,
+                        'nama_produk' => $item->produk->nama_produk,
+                        'israted' => $item->israted,
                         'harga' => $item->produk->harga,
                         'quantity' => $item->quantity,
                         'gambar' => url('/storage/' . $item->produk->gambar)
@@ -109,5 +123,74 @@ class TransaksiController extends Controller
         });
 
         return response()->json($response);
+    }
+
+    public function showAdmin(){
+        $user = Auth::user();
+
+        $transaksi = Transaksi::where('status', 'success')
+        ->orWhere('status', 'delivering')
+        ->orWhere('status', 'delivered')
+        ->with(['transaksiItem.produk', 'alamat.user'])
+        ->get();
+
+
+        $response = $transaksi->map(function ($transaksi) {
+            return [
+                'transaksi_id' => $transaksi->transaksi_id,
+                'status' => $transaksi->status,
+                'total_harga' => $transaksi->total,
+                'pembeli' => $transaksi->alamat->user->name,
+                'alamat' => [
+                    'no_telepon' => $transaksi->alamat->no_telepon,
+                    'label_alamat' => $transaksi->alamat->label_alamat,
+                    'nama_penerima' => $transaksi->alamat->nama_penerima,
+                    'detail' => $transaksi->alamat->detail,
+                    'kelurahan' => $transaksi->alamat->kelurahan,
+                    'kecamatan' => $transaksi->alamat->kecamatan,
+                    'kabupaten' => $transaksi->alamat->kabupaten,
+                    'provinsi' => $transaksi->alamat->provinsi,
+                    'kodepos' => $transaksi->alamat->kodepos,
+                    'catatan_kurir' => $transaksi->alamat->catatan_kurir,
+
+                ],
+                'transaksi_item' => $transaksi->transaksiItem->map(function ($item) {
+                    return [
+                        'transaksi_item_id' => $item->transaksi_item_id,
+                        'produk_id' => $item->produk->produk_id,
+                        'nama_produk' => $item->produk->nama_produk,
+                        'israted' => $item->israted,
+                        'harga' => $item->produk->harga,
+                        'quantity' => $item->quantity,
+                        'gambar' => url('/storage/' . $item->produk->gambar)
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json($response);
+    }
+
+    public function sampai($id){
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update([
+            'status'=>'delivered'
+        ]);
+        return response()->json([
+            'message' => 'Transaksi sudah sampai ke tempat tujuan'
+        ]);
+    }
+
+    public function resi(Request $request, $id){
+        $request->validate([
+            'resi' => 'required'
+        ]);
+        $transaksi = Transaksi::findOrFail($id);
+        $transaksi->update([
+            'resi' => $request->resi,
+            'status' => 'delivering'
+        ]);
+
+
     }
 }
