@@ -13,7 +13,7 @@ class ProdukController extends Controller
 {
     public function show(){
         $produk = Produk::all();
-        return response()->json(ProdukResource::collection($produk));
+        return response()->json(['data' => ProdukResource::collection($produk)]);
     }
 
     public function detail($id){
@@ -60,8 +60,7 @@ class ProdukController extends Controller
             'nama_produk' => 'required',
             'kategori' => 'required',
             'deskripsi' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'harga' => 'required',            
             'stok' => 'required|integer|min:0'
         ]);
         if($request->hasFile('gambar')){

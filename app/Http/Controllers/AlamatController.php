@@ -23,36 +23,64 @@ class AlamatController extends Controller
             'kabupaten' => 'required',
             'provinsi' => 'required',
             'kodepos' => 'required',
-            'isPrimary' => 'integer',
             'catatan_kurir' => 'nullable|string',
         ]);
-
-        Alamat::create([
-            'id_user' => Auth::user()->user_id,
-            'label_alamat' => $data['label_alamat'],
-            'nama_penerima' => $data['nama_penerima'],
-            'no_telepon' => $data['no_telepon'],
-            'detail' => $data['detail'],
-            'kelurahan' => $data['kelurahan'],
-            'kecamatan' => $data['kecamatan'],
-            'kabupaten' => $data['kabupaten'],
-            'provinsi' => $data['provinsi'],
-            'kodepos' => $data['kodepos'],
-            'isPrimary' => $data['isPrimary'],
-            'catatan_kurir' => $data['catatan_kurir'],
-        ]);
-
+        $user = Auth::user();
+        $cari = Alamat::where('id_user', $user->user_id)->get();
+        if (!$cari) {
+            Alamat::create([
+                'id_user' => Auth::user()->user_id,
+                'label_alamat' => $data['label_alamat'],
+                'nama_penerima' => $data['nama_penerima'],
+                'no_telepon' => $data['no_telepon'],
+                'detail' => $data['detail'],
+                'kelurahan' => $data['kelurahan'],
+                'kecamatan' => $data['kecamatan'],
+                'kabupaten' => $data['kabupaten'],
+                'provinsi' => $data['provinsi'],
+                'kodepos' => $data['kodepos'],
+                'isPrimary' => 1,
+                'catatan_kurir' => $data['catatan_kurir'],
+            ]);
+        } elseif ($cari) {
+            Alamat::create([
+                'id_user' => Auth::user()->user_id,
+                'label_alamat' => $data['label_alamat'],
+                'nama_penerima' => $data['nama_penerima'],
+                'no_telepon' => $data['no_telepon'],
+                'detail' => $data['detail'],
+                'kelurahan' => $data['kelurahan'],
+                'kecamatan' => $data['kecamatan'],
+                'kabupaten' => $data['kabupaten'],
+                'provinsi' => $data['provinsi'],
+                'kodepos' => $data['kodepos'],
+                'isPrimary' => 0,
+                'catatan_kurir' => $data['catatan_kurir'],
+            ]);
+        }
         return response()->json([
             'message' => 'Alamat berhasil ditambah'
         ]);
-
     }
 
     public function show()
     {
         $user = Auth::user();
-        $cari = Alamat::where('id_user', $user->user_id)->get();
-        return response()->json(AlamatResource::collection($cari));
+
+        // Get the primary address first (if exists), then get the rest of the addresses
+        $primaryAlamat = Alamat::where('id_user', $user->user_id)
+            ->where('isPrimary', 1)
+            ->first();
+
+        // Get the rest of the addresses (excluding the primary address)
+        $otherAlamat = Alamat::where('id_user', $user->user_id)
+            ->where('isPrimary', 0)
+            ->get();
+
+        // Combine the primary address and the rest of the addresses
+        $allAlamat = collect([$primaryAlamat])->merge($otherAlamat);
+
+        return response()->json(AlamatResource::collection($allAlamat));
     }
 
     public function update(Request $request, $id)
@@ -76,8 +104,6 @@ class AlamatController extends Controller
         return response()->json([
             'message' => 'Alamat berhasil diperbarui'
         ]);
-
-
     }
 
     public function destroy($id)
@@ -88,14 +114,15 @@ class AlamatController extends Controller
             return response()->json([
                 'message' => 'Alamat berhasil dihapus'
             ]);
-        } else{
+        } else {
             return response()->json([
                 'message' => 'Alamat utama tidak dapat dihapus'
             ]);
         }
     }
 
-    public function utama($id){
+    public function utama($id)
+    {
         $user = Auth::user();
         $cari = Alamat::where('alamat_id', $id)->first();
         $primary = Alamat::where('id_user', $user->user_id)->where('isPrimary', true)->first();

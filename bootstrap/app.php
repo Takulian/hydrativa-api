@@ -18,7 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin'=> AdminMiddleware::class,
-            'petani'=> PetaniMiddleware::class,
             'pemilik-kebun' => PemilikKebunMiddleware::class,
             'pemilik-alamat' => PemilikAlamatMiddleware::class
         ]);
