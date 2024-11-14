@@ -177,7 +177,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function updateMobile(){
+    public function updateMobile(Request $request){
         $user = Auth::user();
         $request->validate([
             'username' => 'required',
