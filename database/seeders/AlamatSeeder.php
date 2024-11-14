@@ -26,7 +26,7 @@ class AlamatSeeder extends Seeder
                 "kodepos" => "12345",
                 "isPrimary" => 1,
                 "catatan_kurir" => "Harap hubungi sebelum tiba",
-                "id_user" => 1     
+                "id_user" => 1
         ]);
     }
 }
