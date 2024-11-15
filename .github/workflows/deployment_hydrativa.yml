@@ -63,4 +63,4 @@ jobs:
           app-name: 'hydrativa'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CFB2DFCD67484D73A58D1AE2FE505ADE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D8B33C6FB10D4523BB1C095795E05257 }}
