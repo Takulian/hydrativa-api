@@ -27,7 +27,7 @@ class AuthController extends Controller
             // 'telp' => 'required'
         ]);
         User::create([
-            'role' => 1,
+            'role' => 2,
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -63,7 +63,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'telp' => $user->telp,
                 'jenis_kelamin' => $user->jenis_kelamin,
-                'gambar' => 'http://127.0.0.1:8000/storage/' . $user->gambar
+                'gambar' => $user->gambar ? url('/storage/'. $user->gambar) : null 
             ]
         ]);
 
