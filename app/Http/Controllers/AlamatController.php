@@ -67,17 +67,19 @@ class AlamatController extends Controller
     {
         $user = Auth::user();
 
-        // Get the primary address first (if exists), then get the rest of the addresses
         $primaryAlamat = Alamat::where('id_user', $user->user_id)
             ->where('isPrimary', 1)
             ->first();
 
-        // Get the rest of the addresses (excluding the primary address)
+        if(!$primaryAlamat){
+            return response()->json([
+                'message' => 'Kamu belum ada alamat utama'
+            ], 403);
+        }
         $otherAlamat = Alamat::where('id_user', $user->user_id)
             ->where('isPrimary', 0)
             ->get();
 
-        // Combine the primary address and the rest of the addresses
         $allAlamat = collect([$primaryAlamat])->merge($otherAlamat);
 
         return response()->json(AlamatResource::collection($allAlamat));
