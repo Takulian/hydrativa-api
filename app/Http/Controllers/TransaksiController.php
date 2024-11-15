@@ -13,6 +13,10 @@ class TransaksiController extends Controller
 {
     public function store(Request $request){
         $user = Auth::user();
+        $data = $request->validate([
+            'total' => 'required',
+            'id_alamat' => 'required'
+        ]);
 
         foreach ($request->id_item as $id_item) {
             $cari = TransaksiItem::findOrFail($id_item);
@@ -21,6 +25,16 @@ class TransaksiController extends Controller
                     'message' => 'Item sudah memiliki transaksi.'
                 ],405);
             }
+            $produk = $cari->produk;
+            $stockBaru = $produk->stok - $cari->quantity;
+            if($stockBaru < 0){
+                return response()->json([
+                    'message' => 'Ada barang yang stoknya habis'
+                ], 400);
+            }
+            $produk->update([
+                'stok' => $stockBaru
+            ]);
         }
 
         Config::$serverKey = config('midtrans.serverKey');
@@ -43,9 +57,6 @@ class TransaksiController extends Controller
         );
 
         $snapToken = Snap::getSnapToken($params);
-        $data = $request->validate([
-            'total' => 'required',
-        ]);
         $transaksi = Transaksi::create([
             'total' => $request->total,
             'status' => 'pending',
