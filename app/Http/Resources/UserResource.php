@@ -27,7 +27,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'telepon' => $this->telp,
             'jenis_kelamin' => $this->jenis_kelamin,
-            'gambar' => 'http://127.0.0.1:8000/storage/' . $this->gambar
+            'gambar' => $this->gambar ? url('/storage/'. $this->gambar) : null
         ];
     }
 }

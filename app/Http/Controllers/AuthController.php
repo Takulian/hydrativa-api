@@ -63,7 +63,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'telp' => $user->telp,
                 'jenis_kelamin' => $user->jenis_kelamin,
-                'gambar' => 'http://127.0.0.1:8000/storage/' . $user->gambar
+                'gambar' => $user->gambar ? url('/storage/'. $user->gambar) : null 
             ]
         ]);
 
