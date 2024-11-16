@@ -9,30 +9,32 @@ use App\Http\Resources\TransaksiItemResource;
 
 class TransaksiItemController extends Controller
 {
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $user = Auth::user();
         $cari = TransaksiItem::where('id_user', $user->user_id)->where('id_produk', $request->id_produk)->where('id_transaksi', null)->first();
-        if(empty($cari) == true){
-            TransaksiItem::create([
+        if (empty($cari) == true) {
+            $data = TransaksiItem::create([
                 'id_user' => $user->user_id,
                 'id_produk' => $request->id_produk,
                 'israted' => false,
                 'quantity' => $request->quantity,
             ]);
             return response()->json([
-                'message' => 'Item telah ditambahkan'
+                'message' => 'Item telah ditambahkan',
+                'data' => $data
             ]);
-        }
-        elseif(empty($cari) == false){
+        } elseif (empty($cari) == false) {
             $cari->update([
-                'quantity'=>$cari->quantity + $request->quantity
+                'quantity' => $cari->quantity + $request->quantity
             ]);
             return response()->json([
-                'message' => 'Item telah ditambahkan'
+                'message' => 'Item telah ditambahkan',
+                'data' => $cari
             ]);
         }
-    }
-    public function show(){
+    }    public function show()
+    {
         $user = Auth::user();
         $cari = TransaksiItem::where('id_user', $user->user_id)->where('id_transaksi', null)->get();
         return response()->json(TransaksiItemResource::collection($cari));
