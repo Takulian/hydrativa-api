@@ -34,6 +34,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/keranjang/add', [TransaksiItemController::class, 'add']); #Menambah keranjang
     Route::get('/keranjang', [TransaksiItemController::class, 'show']); #Lihat keranjang
+    Route::post('/keranjang/delete', [TransaksiItemController::class, 'delete']);
 
     Route::get('/transaksi', [TransaksiController::class, 'show']);
     Route::post('/sampai/{id}', [TransaksiController::class, 'sampai']);

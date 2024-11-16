@@ -37,4 +37,14 @@ class TransaksiItemController extends Controller
         $cari = TransaksiItem::where('id_user', $user->user_id)->where('id_transaksi', null)->get();
         return response()->json(TransaksiItemResource::collection($cari));
     }
+
+    public function delete(Request $request){
+        foreach ($request->id_item as $id_item) {
+            $cari = TransaksiItem::findOrFail($id_item);
+            $cari->delete();
+        }
+        return response()->json([
+            'message' => 'Keranjang berhasil dihapus'
+        ]);
+    }
 }
