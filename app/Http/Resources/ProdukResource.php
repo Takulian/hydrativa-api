@@ -27,6 +27,7 @@ class ProdukResource extends JsonResource
             'kategori' => $this->kategori,          
             'deskripsi' => $this->deskripsi,            
             'harga' => $this->harga,
+            'stok' => $this->stok,
             'gambar' => $this->gambar ? url('/storage/' . $this->gambar) : null,
             'final_rating' => $finalRating
         ];
