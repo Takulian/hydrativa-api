@@ -26,11 +26,6 @@ class Produk extends Model
     ];
 
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'id_user', 'user_id');
-    }
-
     public function transaksiItem(): HasMany
     {
         return $this->hasMany(TransaksiItem::class, 'id_produk', 'produk_id');

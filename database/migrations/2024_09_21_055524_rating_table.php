@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('rating', function (Blueprint $table) {
             $table->id('rating_id');
-            $table->foreignId('id_user')
-                ->constrained('user', 'user_id')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
             $table->foreignId('id_transaksi_item')
                 ->constrained('transaksi_item', 'transaksi_item_id')
                 ->cascadeOnUpdate()

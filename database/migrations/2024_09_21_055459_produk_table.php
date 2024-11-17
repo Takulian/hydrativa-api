@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->id('produk_id');
-            $table->foreignId('id_user')
-                ->constrained('user', 'user_id')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
             $table->string('nama_produk');
             $table->string('kategori');
             $table->text('deskripsi');
