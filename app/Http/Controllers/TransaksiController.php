@@ -110,7 +110,7 @@ class TransaksiController extends Controller
             $query->where('id_user', $user->user_id);
         })
         ->with(['transaksiItem.produk'])
-        ->get();
+        ->latest()->get();
 
 
         $response = $transaksi->map(function ($transaksi) {
