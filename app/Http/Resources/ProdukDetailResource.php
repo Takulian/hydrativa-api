@@ -64,11 +64,11 @@ class ProdukDetailResource extends JsonResource
 
         return [
             'id' => $this->produk_id,
-            'nama' => $this->nama_produk,
+            'nama_produk' => $this->nama_produk,
             'kategori' => $this->kategori,
             'deskripsi' => $this->deskripsi,
             'harga' => $this->harga,
-            'gambar' => 'http://127.0.0.1:8000/storage/' . $this->gambar,
+            'gambar' => $this->gambar ? url('/storage/' . $this->gambar) : null,
             'stok' => $this->stok,
             'final_rating' => $finalRating, // The calculated final rating
             'jumlah_rating' => $jumlahRating, // Total number of ratings
