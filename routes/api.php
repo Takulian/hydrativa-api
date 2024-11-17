@@ -19,6 +19,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']); #Menghapus produk
 
         Route::get('/transaksi/admin', [TransaksiController::class, 'showAdmin']);
+        Route::get('/transaksi/dashboard', [TransaksiController::class, 'dashboard']);
         Route::post('/transaksi/resi/{id}', [TransaksiController::class, 'resi']);
     });
 
