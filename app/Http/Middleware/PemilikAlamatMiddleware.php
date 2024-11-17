@@ -20,7 +20,7 @@ class PemilikAlamatMiddleware
         $user = Auth::user();
         $alamat = Alamat::findOrFail($request->id);
         if($alamat->id_user != $user->user_id){
-            return response()->json('Kebun not found', 404);
+            return response()->json('Alamat not found', 404);
         }
         else{
             return $next($request);
