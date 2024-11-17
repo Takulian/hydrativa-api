@@ -69,10 +69,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rating::class, 'id_user', 'user_id');
     }
-    public function produk(): HasMany
-    {
-        return $this->hasMany(Produk::class, 'id_user', 'user_id');
-    }
     public function transaksi(): HasMany
     {
         return $this->hasMany(Transaksi::class, 'id_user', 'user_id');
