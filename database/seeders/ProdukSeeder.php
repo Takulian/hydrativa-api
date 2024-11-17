@@ -19,7 +19,6 @@ class ProdukSeeder extends Seeder
             "deskripsi" => "Teh Stevia",
             "harga" => "50000",
             "stok" => "10",
-            'id_user' => 1
         ]);
     }
 }
