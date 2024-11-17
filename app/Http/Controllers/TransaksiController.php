@@ -143,6 +143,7 @@ class TransaksiController extends Controller
         ->orWhere('status', 'delivering')
         ->orWhere('status', 'delivered')
         ->with(['transaksiItem.produk', 'alamat.user'])
+        ->latest()
         ->get();
 
 
