@@ -86,7 +86,6 @@ class KebunController extends Controller
             'nama_kebun'=>'required',
             'luas_lahan'=>'required',
             'lokasi_kebun'=>'required',
-            'gambar' => 'required'
         ]);
         if($request->hasFile('gambar')){
             $pathLama = storage_path('app/public/'.$cari->gambar);
