@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\ProdukResource;
 use App\Http\Resources\ProdukDetailResource;
+use App\Imports\ProdukImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukController extends Controller
 {
@@ -19,6 +21,17 @@ class ProdukController extends Controller
     public function detail($id){
         $produk = Produk::with('transaksiItem.rating')->find($id);
         return response()->json(new ProdukDetailResource($produk));
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt',
+        ]);
+
+        Excel::import(new ProdukImport, $request->file('csv_file'));
+
+        return response()->json(['message' => 'CSV file imported successfully']);
     }
 
     public function store(Request $request){
