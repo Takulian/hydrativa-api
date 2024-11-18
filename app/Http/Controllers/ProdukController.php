@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Http\Resources\ProdukResource;
 use App\Http\Resources\ProdukDetailResource;
@@ -43,7 +42,6 @@ class ProdukController extends Controller
             for ($i = 0; $i < count($customerArr); $i ++)
             {
                 Produk::create([
-                    'id_user' => Auth::user()->user_id,
                     'nama_produk' => $customerArr[$i]['nama_produk'],
                     'kategori' => $customerArr[$i]['kategori'],
                     'deskripsi' => $customerArr[$i]['deskripsi'],
@@ -65,7 +63,6 @@ class ProdukController extends Controller
             ]);
 
             $data = Produk::create([
-                'id_user' => Auth::user()->user_id,
                 'nama_produk' => $request->nama_produk,
                 'kategori' => $request->kategori,
                 'deskripsi' => $request->deskripsi,
