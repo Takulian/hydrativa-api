@@ -15,10 +15,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::post('/sensor', [AlatController::class, 'store']); #Menambah alat
         Route::post('/produk', [ProdukController::class, 'store']); #Menambah produk
+        Route::post('/produk/import', [ProdukController::class, 'import']);
         Route::post('/produk/{id}', [ProdukController::class, 'edit']); #Edit produk
         Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']); #Menghapus produk
 
         Route::get('/transaksi/admin', [TransaksiController::class, 'showAdmin']);
+        Route::get('/transaksi/dashboard', [TransaksiController::class, 'dashboard']);
         Route::post('/transaksi/resi/{id}', [TransaksiController::class, 'resi']);
     });
 
@@ -40,8 +42,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/sampai/{id}', [TransaksiController::class, 'sampai']);
     Route::post('/bayar', [TransaksiController::class, 'store']);
     Route::get('/bayar/{id}', [TransaksiController::class, 'bayarUlang']);
-    Route::get('/bayar/berhasil/{id}', [TransaksiController::class,'berhasil']);
-    Route::get('/bayar/gagal/{id}', [TransaksiController::class,'gagal']);
+    Route::get('/bayar/berhasil/{id}', [TransaksiController::class, 'berhasil']);
+    Route::get('/bayar/gagal/{id}', [TransaksiController::class, 'gagal']);
 
     Route::get('/ulasan', [RatingController::class, 'unrated']);
     Route::post('/ulas/{id}', [RatingController::class, 'rating']);
@@ -52,7 +54,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/alamat/{id}', [AlamatController::class, 'destroy'])->middleware('pemilik-alamat');
     Route::get('/alamat/primary/{id}', [AlamatController::class, 'utama']);
 
-    Route::get('/logout',[AuthController::class, 'logout']); #Yaaa logout apalagi
+    Route::get('/logout', [AuthController::class, 'logout']); #Yaaa logout apalagi
     Route::get('/me', [AuthController::class, 'aboutme']); #Melihat Profil diri sendiri
     Route::post('/me/photo', [AuthController::class, 'updatePhoto']);
     Route::post('/me/update', [AuthController::class, 'update']);
@@ -65,6 +67,6 @@ Route::get('/verified', [AuthController::class, 'verifEmail'])->middleware('sign
 Route::get('/produk', [ProdukController::class, 'show']); #Melihat semua produk
 Route::get('/produk/{id}', [ProdukController::class, 'detail']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login',[AuthController::class, 'login']); #Login aja ga lebih
+Route::post('/login', [AuthController::class, 'login']); #Login aja ga lebih
 Route::post('/kebun/status/{id}', [KebunController::class, 'updateStatus']);
 Route::get('/sensor', [AlatController::class, 'show']);

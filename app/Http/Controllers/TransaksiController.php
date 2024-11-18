@@ -184,6 +184,51 @@ class TransaksiController extends Controller
         return response()->json($response);
     }
 
+    public function dashboard(){
+        $user = Auth::user();
+
+        $transaksi = Transaksi::with(['transaksiItem.produk', 'alamat.user'])
+        ->get();
+
+
+        $response = $transaksi->map(function ($transaksi) {
+            return [
+                'transaksi_id' => $transaksi->transaksi_id,
+                'status' => $transaksi->status,
+                'total_harga' => $transaksi->total,
+                'resi' => $transaksi->resi,
+                'pembeli' => $transaksi->alamat->user->name,
+                'created_at' => $transaksi->created_at,
+                'alamat' => [
+                    'no_telepon' => $transaksi->alamat->no_telepon,
+                    'label_alamat' => $transaksi->alamat->label_alamat,
+                    'nama_penerima' => $transaksi->alamat->nama_penerima,
+                    'detail' => $transaksi->alamat->detail,
+                    'kelurahan' => $transaksi->alamat->kelurahan,
+                    'kecamatan' => $transaksi->alamat->kecamatan,
+                    'kabupaten' => $transaksi->alamat->kabupaten,
+                    'provinsi' => $transaksi->alamat->provinsi,
+                    'kodepos' => $transaksi->alamat->kodepos,
+                    'catatan_kurir' => $transaksi->alamat->catatan_kurir,
+
+                ],
+                'transaksi_item' => $transaksi->transaksiItem->map(function ($item) {
+                    return [
+                        'transaksi_item_id' => $item->transaksi_item_id,
+                        'produk_id' => $item->produk->produk_id,
+                        'nama_produk' => $item->produk->nama_produk,
+                        'israted' => $item->israted,
+                        'harga' => $item->produk->harga,
+                        'quantity' => $item->quantity,
+                        'gambar' => url('/storage/' . $item->produk->gambar)
+                    ];
+                }),
+            ];
+        });
+
+        return response()->json($response);
+    }
+
     public function sampai($id){
         $transaksi = Transaksi::findOrFail($id);
         $transaksi->update([
