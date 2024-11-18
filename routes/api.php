@@ -15,7 +15,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::post('/sensor', [AlatController::class, 'store']); #Menambah alat
         Route::post('/produk', [ProdukController::class, 'store']); #Menambah produk
-        Route::post('/produk/import', [ProdukController::class, 'import']);
         Route::post('/produk/{id}', [ProdukController::class, 'edit']); #Edit produk
         Route::get('/produk/delete/{id}', [ProdukController::class, 'destroy']); #Menghapus produk
 
