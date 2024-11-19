@@ -90,9 +90,31 @@ class AuthController extends Controller
 
     public function sendVerifLink()
     {
-        $user = Auth::user();
+        $user = Auth::user();        
+
+        // Membuat URL sementara dengan tanda tangan
         $url = URL::temporarySignedRoute('verif.email', now()->addMinute(5), ['email' => $user->email]);
-        Mail::to($user->email)->send(new EmailVerificationLink($url, $user->name));
+
+        // Parsing URL untuk mendapatkan query parameters
+        $parsedUrl = parse_url($url); // Parse URL
+        parse_str($parsedUrl['query'], $queryParams); // Parse query string
+
+        // Mendapatkan parameter dari query string
+        $email = $queryParams['email'] ?? null;
+        $expires = $queryParams['expires'] ?? null;
+        $signature = $queryParams['signature'] ?? null;
+
+        // Encode semua parameter
+        $encodedEmail = urlencode($email);
+        $encodedExpires = urlencode($expires);
+        $encodedSignature = urlencode($signature);
+
+        // Buat URL frontend untuk dikirim melalui email
+        $url_frontend = 'http://localhost:3000/verified?email=' . $encodedEmail . '&expires=' . $encodedExpires . '&signature=' . $encodedSignature;
+
+        // Kirimkan email dengan URL reset
+        Mail::to($user->email)->send(new EmailVerificationLink($url_frontend, $user->name));
+
         return response()->json([
             'message' => 'Lihat email-mu untuk verifikasi'
         ]);
