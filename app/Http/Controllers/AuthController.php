@@ -110,7 +110,7 @@ class AuthController extends Controller
         $encodedSignature = urlencode($signature);
 
         // Buat URL frontend untuk dikirim melalui email
-        $url_frontend = 'http://localhost:3000/verified?email=' . $encodedEmail . '&expires=' . $encodedExpires . '&signature=' . $encodedSignature;
+        $url_frontend = env('FRONTEND_URL') . '/verified?email=' . $encodedEmail . '&expires=' . $encodedExpires . '&signature=' . $encodedSignature;
 
         // Kirimkan email dengan URL reset
         Mail::to($user->email)->send(new EmailVerificationLink($url_frontend, $user->name));
@@ -167,7 +167,7 @@ class AuthController extends Controller
                 $encodedSignature = urlencode($signature);
 
                 // Buat URL frontend untuk dikirim melalui email
-                $url_frontend = 'http://localhost:3000/reset-password?email=' . $encodedEmail . '&expires=' . $encodedExpires . '&signature=' . $encodedSignature;
+                $url_frontend = env('FRONTEND_URL') . '/reset-password?email=' . $encodedEmail . '&expires=' . $encodedExpires . '&signature=' . $encodedSignature;
 
                 // Kirimkan email dengan URL reset
                 Mail::to($request->email)->send(new ResetPasswordLink($url_frontend, $user->name));
