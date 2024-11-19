@@ -14,12 +14,15 @@ class EmailVerificationLink extends Mailable
     use Queueable, SerializesModels;
 
     public $url;
+    public $name;
+
     /**
      * Create a new message instance.
      */
-    public function __construct($url)
+    public function __construct($url, $name)
     {
         $this->url = $url;
+        $this->name = $name;
     }
 
     /**
@@ -39,6 +42,9 @@ class EmailVerificationLink extends Mailable
     {
         return new Content(
             markdown: 'emails.verification_email_link',
+            with: [                
+                'name' => $this->name,
+            ]
         );
     }
 

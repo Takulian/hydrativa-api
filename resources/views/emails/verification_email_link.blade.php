@@ -1,11 +1,16 @@
-<x-mail::message>
-# Verification Email
+@component('mail::message')
+# Verifikasi Email Anda
 
+Halo, {{ $name }}
 
-<x-mail::button :url="$url">
-Verify
-</x-mail::button>
+Anda telah mendaftar pada HydraTiva. Klik tombol di bawah ini untuk verifikasi email anda:
 
-Thanks,<br>
+@component('mail::button', ['url' => $url])
+Verifikasi Email
+@endcomponent
+
+Jika Anda tidak meminta pengaturan ulang ini, Anda dapat mengabaikan email ini.
+
+Terima kasih,<br>
 {{ config('app.name') }}
-</x-mail::message>
+@endcomponent

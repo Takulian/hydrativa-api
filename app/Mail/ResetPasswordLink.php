@@ -14,12 +14,14 @@ class ResetPasswordLink extends Mailable
     use Queueable, SerializesModels;
 
     public $url;
+    public $name;
     /**
      * Create a new message instance.
      */
-    public function __construct($url)
+    public function __construct($url, $name)
     {
         $this->url = $url;
+        $this->name = $name;
     }
 
     /**
@@ -39,6 +41,9 @@ class ResetPasswordLink extends Mailable
     {
         return new Content(
             markdown: 'emails.reset_password_link',
+            with: [                
+                'name' => $this->name,
+            ]
         );
     }
 

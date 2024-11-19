@@ -1,7 +1,7 @@
 @component('mail::message')
 # Reset Kata Sandi
 
-Halo,
+Halo, {{ $name }}
 
 Anda telah meminta untuk mengatur ulang kata sandi Anda. Klik tombol di bawah ini untuk mengatur ulang kata sandi:
 

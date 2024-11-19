@@ -92,7 +92,7 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         $url = URL::temporarySignedRoute('verif.email', now()->addMinute(5), ['email' => $user->email]);
-        Mail::to($user->email)->send(new EmailVerificationLink($url));
+        Mail::to($user->email)->send(new EmailVerificationLink($url, $user->name));
         return response()->json([
             'message' => 'Lihat email-mu untuk verifikasi'
         ]);
@@ -148,7 +148,7 @@ class AuthController extends Controller
                 $url_frontend = 'http://localhost:3000/reset-password?email=' . $encodedEmail . '&expires=' . $encodedExpires . '&signature=' . $encodedSignature;
 
                 // Kirimkan email dengan URL reset
-                Mail::to($request->email)->send(new ResetPasswordLink($url_frontend));
+                Mail::to($request->email)->send(new ResetPasswordLink($url_frontend, $user->name));
                 // Mail::to($request->email)->send(new ResetPasswordLink($url));
 
                 return response()->json([
