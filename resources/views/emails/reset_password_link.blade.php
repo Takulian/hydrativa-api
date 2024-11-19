@@ -1,10 +1,16 @@
-<x-mail::message>
-# Reset Password
+@component('mail::message')
+# Reset Kata Sandi
 
-<x-mail::button :url="$url">
-Reset
-</x-mail::button>
+Halo,
 
-Thanks,<br>
+Anda telah meminta untuk mengatur ulang kata sandi Anda. Klik tombol di bawah ini untuk mengatur ulang kata sandi:
+
+@component('mail::button', ['url' => $url])
+Atur Ulang Kata Sandi
+@endcomponent
+
+Jika Anda tidak meminta pengaturan ulang ini, Anda dapat mengabaikan email ini.
+
+Terima kasih,<br>
 {{ config('app.name') }}
-</x-mail::message>
+@endcomponent

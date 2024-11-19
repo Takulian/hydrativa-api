@@ -28,7 +28,7 @@ class ResetPasswordLink extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reset Password Link',
+            subject: 'Atur Ulang Kata Sandi',
         );
     }
 
