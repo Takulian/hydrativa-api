@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AlamatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlatController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KebunController;
+use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksiItemController;
-use App\Http\Controllers\AlatController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['admin'])->group(function () {
@@ -21,6 +22,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/transaksi/admin', [TransaksiController::class, 'showAdmin']);
         Route::get('/transaksi/dashboard', [TransaksiController::class, 'dashboard']);
         Route::post('/transaksi/resi/{id}', [TransaksiController::class, 'resi']);
+
+        Route::post('/materi', [MateriController::class, 'store']);
+        Route::post('/materi/{id}', [MateriController::class, 'update']);
+        Route::get('/materi/delete/{id}', [MateriController::class, 'destroy']);
     });
 
     Route::post('/kebun', [KebunController::class, 'store']); #Menambah kebun
@@ -69,3 +74,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']); #Login aja ga lebih
 Route::post('/kebun/status/{id}', [KebunController::class, 'updateStatus']);
 Route::get('/sensor', [AlatController::class, 'show']);
+
+Route::get('/materi', [Matericontroller::class, 'show']);
+Route::get('/materi/{id}', [Matericontroller::class, 'detail']);
