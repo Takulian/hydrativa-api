@@ -140,7 +140,7 @@ class KebunController extends Controller
     }
 
     public function histori($id){
-        $histori = Histori::where('id_kebun', $id)->get();
+        $histori = Histori::where('id_kebun', $id)->latest()->get();
         return response()->json(HistoriResource::collection($histori));
     }
 
