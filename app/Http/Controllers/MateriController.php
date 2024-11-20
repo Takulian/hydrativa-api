@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Materi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Http\Resources\MateriResource;
 
 class MateriController extends Controller
@@ -50,7 +51,7 @@ class MateriController extends Controller
         ]);
     }
 
-    public function edit(Request $request, $id){
+    public function update(Request $request, $id){
         $materi = Materi::findOrFail($id);
         $request->validate([
             'judul' => 'required',
@@ -85,7 +86,7 @@ class MateriController extends Controller
         if(File::exists($path)){
             File::delete($path);
         }
-        $Materi->delete();
+        $materi->delete();
         return response()->json([
             'message' => 'Materi berhasil dihapus'
         ]);

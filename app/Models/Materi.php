@@ -15,6 +15,6 @@ class Materi extends Model
         'judul',
         'deskripsi',
         'sumber',
-        'lokasi_kebun'
+        'gambar'
     ];
 }
