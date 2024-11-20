@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Http\Resources\MateriResource;
 
 class MateriController extends Controller
 {
     public function show(){
         $data = Materi::all();
-        return response()->json([
-            'judul' => $data->judul,
-            'deskripsi' => $data->deskripsi,
-            'gambar' => $data->gambar ? url('/storage/' . $data->gambar) : null
-        ]);
+        return MateriResource::collection($data);
 
     }
 
