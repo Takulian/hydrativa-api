@@ -16,6 +16,7 @@ class MateriController extends Controller
     public function detail($id){
         $data = Materi::findOrFail($id);
         return response()->json([
+            'id' => $data->materi_id,
             'judul' => $data->judul,
             'deskripsi' => $data->deskripsi,
             'sumber' => $data->sumber,

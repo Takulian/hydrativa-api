@@ -15,6 +15,7 @@ class MateriResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->materi_id,
             'judul' => $this->judul,
             'deskripsi' => $this->deskripsi,
             'sumber' => $this->sumber,
