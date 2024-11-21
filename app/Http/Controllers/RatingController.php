@@ -68,8 +68,7 @@ class RatingController extends Controller
                 ], 405);
             }else{
                 if($keranjang->transaksi->status == 'delivered'){
-                    $rating = Rating::create([
-                        'id_user'=>$user->user_id,
+                    $rating = Rating::create([                        
                         'id_transaksi_item'=> $id,
                         'rating'=>$request->rating,
                         'comment'=>$request->comment,

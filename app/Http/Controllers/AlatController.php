@@ -9,19 +9,20 @@ class AlatController extends Controller
 {
 
     public function show(){
-        $hydra = Alat::with('kebun')->get();
+        $hydra = Alat::with(['kebun', 'kebun.user'])->get();
         return $hydra;
     }
 
     public function store(Request $request)
     {
         $kode = $this->quickRandom();
-        Alat::create([
-            'alat_id' => $kode
+        $alat = Alat::create([
+        'alat_id' => $kode
         ]);
         return response()->json([
             'message' => 'Alat berhasil ditambahkan',
-            'kode' => $kode
+            'kode' => $kode,
+            'alat' => $alat
         ], 200);
     }
 
