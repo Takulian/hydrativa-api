@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('provinsi');
             $table->string('kodepos');
             $table->integer('isPrimary');
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->string('catatan_kurir')->nullable();
             $table->timestamps();
         });

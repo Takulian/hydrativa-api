@@ -26,6 +26,8 @@ class AlamatSeeder extends Seeder
                 "kodepos" => "12345",
                 "isPrimary" => 1,
                 "catatan_kurir" => "Harap hubungi sebelum tiba",
+                "longitude" => 106.80582824624551,
+                "latitude" => -6.591673491465922,
                 "id_user" => 1
         ]);
     }

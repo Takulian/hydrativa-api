@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +14,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             ProdukSeeder::class,
-            AlamatSeeder::class 
+            AlamatSeeder::class,
+            TransaksiSeeder::class,
+            TransaksiItemSeeder::class
         ]);
     }
 }

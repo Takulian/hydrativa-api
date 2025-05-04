@@ -164,6 +164,8 @@ class TransaksiController extends Controller
                     'kabupaten' => $transaksi->alamat->kabupaten,
                     'provinsi' => $transaksi->alamat->provinsi,
                     'kodepos' => $transaksi->alamat->kodepos,
+                    'longitude' => $transaksi->alamat->longitude,
+                    'latitude' => $transaksi->alamat->latitude,
                     'catatan_kurir' => $transaksi->alamat->catatan_kurir,
 
                 ],
