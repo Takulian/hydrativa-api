@@ -154,6 +154,7 @@ class TransaksiController extends Controller
                 'total_harga' => $transaksi->total,
                 'resi' => $transaksi->resi,
                 'pembeli' => $transaksi->alamat->user->name,
+                'created_at' => $transaksi->created_at,
                 'alamat' => [
                     'no_telepon' => $transaksi->alamat->no_telepon,
                     'label_alamat' => $transaksi->alamat->label_alamat,
